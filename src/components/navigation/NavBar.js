@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
@@ -17,6 +17,23 @@ const Navbar = () => {
     const closeMenu = () => {
         setOpen(false);
     };
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth > 950) {
+                setOpen(false);
+            }
+        };
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
 
     return (
         <nav className="navbar">
@@ -48,16 +65,14 @@ const Navbar = () => {
                     </Link>
                 </li>
                 <li className="nav-buttons">
-                    <Link to="/signup">
-                        <img src={SignUpIcon} alt="Signup" onClick={closeMenu} />
-                    </Link>
-                    <Link to="/login">
-                        <img src={LogInIcon} alt="LogIn" onClick={closeMenu} />
-                    </Link>
+
+                     <Link to="/signup"> <img src={SignUpIcon} alt="Signup" onClick={closeMenu} /></Link>
+                     <Link to="/login"><img src={LogInIcon} alt="LogIn" onClick={closeMenu} /></Link>
                 </li>
-                <li className="nav-search">
-                    <SearchBar></SearchBar>
-                </li>
+                { !open ? <li className="nav-search">
+                            <SearchBar></SearchBar>
+                        </li> : ""
+                }
             </ul>
         </nav>
     );
