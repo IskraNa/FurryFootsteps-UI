@@ -4,6 +4,7 @@ import HomePage from './views/HomePage';
 import CategoryPage from './views/CategoryPage';
 import AboutPage from './views/AboutPage';
 import ContactPage from './views/ContactPage';
+import Footer from './components/footer/Footer';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/about" element={<AboutPage/>} exact />
                 <Route path="/contact" element={<ContactPage/>} exact />
             </Routes>
+            <Footer />
         </Router>
     );
 }
