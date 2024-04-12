@@ -1,8 +1,8 @@
 .register-container {
     display: flex;
-    flex-direction: column; /* Stack items vertically */
+    flex-direction: column;
     height: 100%;
-    width: 100%/* Ensure the container takes up the full viewport height */
+    width: 100%;
 }
 
 .register-form {
@@ -11,8 +11,10 @@
     background-color: #f9f9f9;
     border-radius: 5px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    margin-top: 20px; /* Add some space between the header and form */
+    margin-top: 20px;
     margin-left: 25%;
+    margin-bottom: 20px;
+
 }
 
 
@@ -44,8 +46,8 @@
 .register-form input[type="email"]:focus,
 .register-form input[type="tel"]:focus,
 .register-form input[type="password"]:focus {
-    border-color: #8CCC88; /* Change border color to green when focused */
-    outline: none; /* Optionally remove the default outline */
+    border-color: #8CCC88;
+    outline: none;
 
 }
 
