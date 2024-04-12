@@ -4,13 +4,20 @@
     <list default="true" id="03a4626e-e2fa-4f45-b412-cf4df3550c0e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cardCategories/CardCategory.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardCategories/CardCategory.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/HomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/HomePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,7 +50,9 @@
       <updated>1712164984933</updated>
       <workItem from="1712164987948" duration="1595000" />
       <workItem from="1712437233403" duration="664000" />
-      <workItem from="1712486232328" duration="6196000" />
+      <workItem from="1712486232328" duration="6883000" />
+      <workItem from="1712505041235" duration="24000" />
+      <workItem from="1712917351092" duration="4917000" />
     </task>
     <servers />
   </component>
