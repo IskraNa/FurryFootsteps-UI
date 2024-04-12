@@ -4,7 +4,7 @@ import HomePage from './views/HomePage';
 import CategoryPage from './views/CategoryPage';
 import AboutPage from './views/AboutPage';
 import ContactPage from './views/ContactPage';
-import RegistrationPage from "./views/RegistrationPage";
+import Footer from './components/footer/Footer';
 
 function App() {
 
@@ -15,8 +15,9 @@ function App() {
                 <Route path="/category" element={<CategoryPage/>} exact />
                 <Route path="/about" element={<AboutPage/>} exact />
                 <Route path="/contact" element={<ContactPage/>} exact />
-                <Route path="/register" element={<RegistrationPage/>} exact />
+                {/*<Route path="/register" element={<RegistrationPage/>} exact />*/}
             </Routes>
+            <Footer />
         </Router>
     );
 }
