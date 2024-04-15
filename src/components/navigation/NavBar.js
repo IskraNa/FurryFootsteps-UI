@@ -66,7 +66,7 @@ const Navbar = () => {
                 </li>
                 <li className="nav-buttons">
 
-                     <Link to="/signup"> <img src={SignUpIcon} alt="Signup" onClick={closeMenu} /></Link>
+                     <Link to="/register"> <img src={SignUpIcon} alt="Signup" onClick={closeMenu} /></Link>
                      <Link to="/login"><img src={LogInIcon} alt="LogIn" onClick={closeMenu} /></Link>
                 </li>
                 { !open ? <li className="nav-search">

@@ -2,11 +2,16 @@ import React from 'react';
 import Header from '../components/header/Header';
 import CardCategory from "../components/cardCategories/CardCategory";
 import '../components/cardCategories/CardCategory.css';
+import '../components/cardCategories/UsefulPetKnowledge.css';
+import UsefulPetKnowledge from "../components/cardCategories/UsefulPetKnowledge";
+import PetData from "../components/cardCategories/PetData";
 
 const HomePage = () => {
     return (
         <div>
             <Header />
+            <br/>
+            <br/>
             <div className="custom-container">
                 {/* First Row */}
                 <div className="custom-row">
@@ -33,6 +38,9 @@ const HomePage = () => {
                         <CardCategory category="Pet Events" imageUrl={require("../assets/pet_event_2.png")} style={{ marginLeft: '3%' }} />
                     </div>
                 </div>
+            </div>
+            <div className="post-container">
+                <UsefulPetKnowledge petData={PetData}/>
             </div>
         </div>
     );
