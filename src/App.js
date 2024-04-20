@@ -6,7 +6,9 @@ import AboutPage from './views/AboutPage';
 import ContactPage from './views/ContactPage';
 import Footer from './components/footer/Footer';
 import RegistrationPage from './views/RegistrationPage';
-import PostPage from './views/PostPage';
+import LoginPage from './views/LoginPage';
+
+// import PostPage from './views/PostPage';
 
 function App() {
 
@@ -18,7 +20,8 @@ function App() {
                 <Route path="/about" element={<AboutPage/>} exact />
                 <Route path="/contact" element={<ContactPage/>} exact />
                 <Route path="/register" element={<RegistrationPage/>} exact />
-                <Route path="/posts" element={<PostPage/>} exact />
+                <Route path="/login" element={<LoginPage />} exact />
+                {/*<Route path="/posts" element={<PostPage/>} exact />*/}
             </Routes>
             <Footer />
         </Router>
