@@ -7,6 +7,7 @@ import ContactPage from './views/ContactPage';
 import Footer from './components/footer/Footer';
 import RegistrationPage from './views/RegistrationPage';
 import LoginPage from './views/LoginPage';
+import AddServicePage from './views/AddServicePage';
 
 // import PostPage from './views/PostPage';
 
@@ -21,6 +22,8 @@ function App() {
                 <Route path="/contact" element={<ContactPage/>} exact />
                 <Route path="/register" element={<RegistrationPage/>} exact />
                 <Route path="/login" element={<LoginPage />} exact />
+                <Route path="/addService" element={<AddServicePage />} exact />
+
                 {/*<Route path="/posts" element={<PostPage/>} exact />*/}
             </Routes>
             <Footer />
