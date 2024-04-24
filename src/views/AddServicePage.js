@@ -4,7 +4,7 @@ import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 import "../components/addServiceForm/addServiceForm.css";
 import AddServiceForm from "../components/addServiceForm/addServiceForm";
-import HeaderSmall from "../headerSmall/HeaderSmall";
+import HeaderSmall from "../components/headerSmall/HeaderSmall";
 
 
 function App() {
