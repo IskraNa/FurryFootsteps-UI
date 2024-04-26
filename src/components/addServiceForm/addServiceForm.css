@@ -1,0 +1,54 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.content-container {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.add-service-form h2 {
+    margin-bottom: 50px;
+    text-align: center;
+    color: #6F4E90;
+    font-weight: bold;
+}
+
+.add-service-form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.add-service-form input[type="text"],
+.add-service-form input[type="textarea"] {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 2px solid #6F4E90;
+    border-radius: 12px;
+}
+
+.add-service-form input[type="text"]:focus,
+.add-service-form input[type="textarea"]:focus {
+    border-color: #8CCC88;
+    outline: none;
+}
+
+.add-service-form button {
+    width: 100%;
+    padding: 15px;
+    background-color: #6F4E90;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.add-service-form button:hover {
+    background-color: #8CCC88;
+}
