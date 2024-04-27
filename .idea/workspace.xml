@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03a4626e-e2fa-4f45-b412-cf4df3550c0e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/assets/Rectangle1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/Rectangle2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/Rectangle3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/Rectangle4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/Rectangle5.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/Rectangle6.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/Rectangle7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/woman-hugging-dog.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/AboutPage.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/AboutPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/AboutPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/headerSmall/HeaderSmall.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/headerSmall/HeaderSmall.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/headerSmall/HeaderSmall.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/headerSmall/HeaderSmall.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,19 +22,8 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="recentNewPullRequestHead">
-      <RepoCoordinatesHolder>
-        <option name="owner" value="IskraNa" />
-        <option name="repository" value="FurryFootsteps-UI" />
-      </RepoCoordinatesHolder>
-    </option>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="ProjectId" id="2ebEeUjquUnOGxmclpyr2ctuaVY" />
   <component name="ProjectViewState">
@@ -54,19 +35,13 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/kovac/WebstormProjects/FurryFootsteps-UI/src/assets&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Mappings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
 }</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\kovac\WebstormProjects\FurryFootsteps-UI\src\assets" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Marija Dimitrova\OneDrive\Desktop\FurryFootsteps-UI\src\components" />
     </key>
@@ -86,9 +61,6 @@
       <workItem from="1712917351092" duration="5711000" />
       <workItem from="1713993994131" duration="3977000" />
       <workItem from="1714141927226" duration="1716000" />
-      <workItem from="1714160367922" duration="110000" />
-      <workItem from="1714160512853" duration="3594000" />
-      <workItem from="1714218913766" duration="9069000" />
     </task>
     <servers />
   </component>
