@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&display=swap');
+.about-page {
+    position: relative;
+    width: 100%;
+    /*padding-top: 100px;*/
+    height: 100vh;
+    background: linear-gradient(0deg, #8BC686, #8BC686);
+    color: #FFFFFF;
+    font-family: 'Fira Sans', sans-serif;
+    border-radius: 0 0 5vw 5vw;
+}
+.about-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    max-width: 1200px;
+    height: calc(100vh - 100px);
+    margin: auto;
+    padding-bottom: 50px;
+}
+.navbar-small{
+    background-color: #8BC686;
+}
+.title {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 100;
+    text-align: center;
+}
+.description {
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 400;
+    text-align: left;
+}
+.woman-hugging-dog {
+    position: absolute;
+    right: 500px;
+    bottom: 0px;
+    width: 300px;
+    z-index: 10;
+    transform: scale(0.85);
+}
+.rectangle-1,
+.rectangle-2,
+.rectangle-3,
+.rectangle-4,
+.rectangle-5,
+.rectangle-6,
+.rectangle-7 {
+    position: absolute;
+    bottom: 50px;
+}
+
+.rectangle-1 {
+    transform: scale(0.9);
+    right: 100px;
+    bottom: 0px;
+}
+
+.rectangle-2 {
+    bottom: 0px;
+    transform: scale(0.9);
+    right: 0px;
+}
+.rectangle-3 {
+    transform: scale(0.85);
+    position: absolute;
+    bottom: 0;
+    left: 50px;
+}
+
+.rectangle-4 {
+    transform: scale(0.85);
+    position: absolute;
+    z-index: 5;
+    top: 0px;
+}
+
+.rectangle-5 {
+    top: 100px ;
+    right: 750px;
+}
+.rectangle-6 {
+    top: 200px;
+    right: 850px;
+}
+.rectangle-7 {
+    top: 230px ;
+    right: 950px;
+}
+@media screen and (max-width: 768px) {
+    .about-container {
+        height: auto;
+    }
+}
