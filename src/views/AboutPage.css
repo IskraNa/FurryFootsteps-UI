@@ -3,7 +3,8 @@
     position: relative;
     width: 100%;
     /*padding-top: 100px;*/
-    height: 100vh;
+    /*height: 100vh;*/
+    height: 80vh;
     background: linear-gradient(0deg, #8BC686, #8BC686);
     color: #FFFFFF;
     font-family: 'Fira Sans', sans-serif;
@@ -27,14 +28,14 @@
     font-family: 'Fira Sans', sans-serif;
     font-weight: 100;
     text-align: center;
-    top: 200px;
+    top: 100px;
 
 }
 .description {
     font-family: 'Fira Sans', sans-serif;
     font-weight: 400;
     text-align: left;
-    top: 300px;
+    top: 200px;
 }
 .woman-hugging-dog {
     position: absolute;
@@ -60,11 +61,11 @@
 .rectangle-1 {
     transform: scale(0.9);
     right: 100px;
-    bottom: -70px;
+    bottom: 50px;
 }
 
 .rectangle-2 {
-    bottom: -73px;
+    bottom: 50px;
     transform: scale(0.9);
     right: 0px;
 }
