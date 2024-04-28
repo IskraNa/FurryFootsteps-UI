@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "category": "grooming",
+    "name": "Pet Grooming Service",
+    "image": "pet_groominh.png",
+    "gender": "Male",
+    "age": "3 years"
+  },
+  {
+    "id": 2,
+    "category": "walking",
+    "name": "Dog Walking Service",
+    "image": "dog_walking.png",
+    "gender": "Female",
+    "age": "2 years"
+  },
+  {
+    "id": 3,
+    "category": "training",
+    "name": "Pet Training Service",
+    "image": "pet_training.webp",
+    "gender": "Male",
+    "age": "1 year"
+  },
+  {
+    "id": 4,
+    "category": "adoption",
+    "name": "Pet Adoption Service",
+    "image": "pet_adoption.png",
+    "gender": "Female",
+    "age": "4 years"
+  },
+  {
+    "id": 5,
+    "category": "events",
+    "name": "Pet Events Service",
+    "image": "pet_event_2.png",
+    "gender": "Male",
+    "age": "5 years"
+  },
+  {
+    "id": 6,
+    "category": "veterinary",
+    "name": "Veterinary Service",
+    "image": "veterinary_services.png",
+    "gender": "Male",
+    "age": "2 years"
+  }
+]

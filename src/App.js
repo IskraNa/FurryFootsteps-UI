@@ -8,6 +8,8 @@ import Footer from './components/footer/Footer';
 import RegistrationPage from './views/RegistrationPage';
 import LoginPage from './views/LoginPage';
 import AddServicePage from './views/AddServicePage';
+import ServicesPage from './views/ServicesPage';
+
 
 // import PostPage from './views/PostPage';
 
@@ -23,6 +25,7 @@ function App() {
                 <Route path="/register" element={<RegistrationPage/>} exact />
                 <Route path="/login" element={<LoginPage />} exact />
                 <Route path="/addService" element={<AddServicePage />} exact />
+                <Route path="/services" element={<ServicesPage />} exact />
 
                 {/*<Route path="/posts" element={<PostPage/>} exact />*/}
             </Routes>
