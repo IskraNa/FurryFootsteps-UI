@@ -9,25 +9,21 @@ import RegistrationPage from './views/RegistrationPage';
 import LoginPage from './views/LoginPage';
 import AddServicePage from './views/AddServicePage';
 import ServicesPage from './views/ServicesPage';
-
-
-// import PostPage from './views/PostPage';
+import ServiceDetailsPage from './views/ServiceDetailsPage';
 
 function App() {
-
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<HomePage/>} exact />
-                <Route path="/category" element={<CategoryPage/>} exact />
-                <Route path="/about" element={<AboutPage/>} exact />
-                <Route path="/contact" element={<ContactPage/>} exact />
-                <Route path="/register" element={<RegistrationPage/>} exact />
+                <Route path="/" element={<HomePage />} exact />
+                <Route path="/category" element={<CategoryPage />} exact />
+                <Route path="/about" element={<AboutPage />} exact />
+                <Route path="/contact" element={<ContactPage />} exact />
+                <Route path="/register" element={<RegistrationPage />} exact />
                 <Route path="/login" element={<LoginPage />} exact />
                 <Route path="/addService" element={<AddServicePage />} exact />
                 <Route path="/services" element={<ServicesPage />} exact />
-
-                {/*<Route path="/posts" element={<PostPage/>} exact />*/}
+                <Route path="/details/:id" element={<ServiceDetailsPage />} />
             </Routes>
             <Footer />
         </Router>

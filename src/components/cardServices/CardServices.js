@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import servicesData from './serviceData.json';
 import './CardService.css';
+import { Link } from 'react-router-dom';
 
-function CardService({ services }) {
+function CardService({ service }) {
     return (
-        <div className="card-services">
-            {services.map(service => (
-                <div className="card-service" key={service.id}>
-                    <img src={require(`../../assets/${service.image}`)} alt={service.name} />
-                    <div className="card-details">
-                        <h3>{service.name}</h3>
-                        <p>Gender: {service.gender} - Age: {service.age}</p>
-                    </div>
-                </div>
-            ))}
+        <div className="card-service">
+            <Link to={`/details/${service.id}`}>
+                <img src={require(`../../assets/${service.image}`)} alt={service.serviceName} />
+            </Link>
+            <div className="card-details">
+                <h3>{service.serviceName}</h3>
+                <p>Gender: {service.gender} - Age: {service.age}</p>
+            </div>
         </div>
     );
 }
@@ -85,11 +84,16 @@ function CardServices() {
                 ))}
             </div>
             <div className="services-pagination-container">
-                <CardService services={currentServices} />
+                <div className="card-services">
+                    {currentServices.map(service => (
+                        <CardService key={service.id} service={service} />
+                    ))}
+                </div>
                 <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={onPageChange} />
             </div>
         </div>
     );
 }
+
 
 export default CardServices;

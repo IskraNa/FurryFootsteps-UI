@@ -1,6 +1,6 @@
 .App {
     display: flex;
-    align-items: flex-start;
+    /*align-items: flex-start;*/
     max-width: 800px;
     margin-bottom: 50px;
     margin-top: 50px;
