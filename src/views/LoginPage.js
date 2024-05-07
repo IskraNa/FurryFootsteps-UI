@@ -5,7 +5,11 @@ import LoginForm from "../components/loginForm/LoginForm";
 
 function App() {
     return (
+<<<<<<< HEAD
+        
+=======
 
+>>>>>>> master
         <div className="login-container">
             <Header />
             <div className="login-form">
@@ -29,6 +33,10 @@ function App() {
             </div>
         </div>
     );
+<<<<<<< HEAD
+
+=======
+>>>>>>> master
 }
 
 export default App;

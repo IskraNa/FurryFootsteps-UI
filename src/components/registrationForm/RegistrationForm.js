@@ -19,10 +19,35 @@ const RegistrationForm = () => {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(formData);
-        // Add further logic here, such as form validation and submission
+       
+        try {
+            const response = await fetch('http://localhost:8080/api/users/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Registration failed');
+            }
+    
+            const data = await response.json();
+            console.log('Registration successful:', data);
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                location: '',
+                password: '',
+                repeatPassword: ''
+            });
+        } catch (error) {
+            console.error('Registration error:', error.message);
+        }
     };
 
     return (
@@ -30,60 +55,66 @@ const RegistrationForm = () => {
             <h2>Register</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Full Name:</label>
+                    
                     <input
                         type="text"
                         name="name"
+                        placeholder='Full Name'
                         value={formData.name}
                         onChange={handleInputChange}
                         required
                     />
                 </div>
                 <div>
-                    <label>Email:</label>
+                    
                     <input
                         type="email"
                         name="email"
+                        placeholder='Email'
                         value={formData.email}
                         onChange={handleInputChange}
                         required
                     />
                 </div>
                 <div>
-                    <label>Phone:</label>
+                    
                     <input
                         type="tel"
                         name="phone"
+                        placeholder='Phone number'
                         value={formData.phone}
                         onChange={handleInputChange}
                         required
                     />
                 </div>
                 <div>
-                    <label>Location:</label>
+                    
                     <input
                         type="text"
                         name="location"
+                        placeholder='Location'
                         value={formData.location}
                         onChange={handleInputChange}
                         required
                     />
                 </div>
                 <div>
-                    <label>Password:</label>
+                    
                     <input
                         type="password"
                         name="password"
+                        placeholder='Password'
                         value={formData.password}
                         onChange={handleInputChange}
                         required
                     />
                 </div>
                 <div>
-                    <label>Repeat Password:</label>
+                   
                     <input
                         type="password"
                         name="repeatPassword"
+                        placeholder='Repeat password'
                         value={formData.repeatPassword}
                         onChange={handleInputChange}
                         required

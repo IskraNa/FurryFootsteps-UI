@@ -26,8 +26,14 @@
 }
 
 .register-form label {
+<<<<<<< HEAD
+    display: inline;
+    margin-bottom: 5px;
+    
+=======
     display: block;
     margin-bottom: 5px;
+>>>>>>> master
 }
 
 .register-form input[type="text"],
@@ -40,7 +46,11 @@
     border: 2px solid #6F4E90;
     border-radius: 12px;
     margin-left: 15%;
+<<<<<<< HEAD
+    display: inline;
+=======
     display: block;
+>>>>>>> master
 }
 .register-form input[type="text"]:focus,
 .register-form input[type="email"]:focus,
