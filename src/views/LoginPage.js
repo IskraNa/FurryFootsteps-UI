@@ -5,7 +5,7 @@ import LoginForm from "../components/loginForm/LoginForm";
 
 function App() {
     return (
-
+        
         <div className="login-container">
             <Header />
             <div className="login-form">
@@ -29,6 +29,7 @@ function App() {
             </div>
         </div>
     );
+
 }
 
 export default App;
