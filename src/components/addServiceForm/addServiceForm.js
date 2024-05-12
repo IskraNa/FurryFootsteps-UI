@@ -128,7 +128,7 @@ const AddServiceForm = () => {
                             type="text"
                             id="availableTime"
                             name="availableTime"
-                            placeholder="Enter available time (e.g., Monday 9:00 AM - 5:00 PM)"
+                            placeholder="Enter available time (e.g., 30-04-2024 12:00 - 30-04-2024 17:00)"
                             required
                         />
                         <button type="button" onClick={handleAddTime}>Add Time</button>
