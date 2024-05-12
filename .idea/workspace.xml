@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03a4626e-e2fa-4f45-b412-cf4df3550c0e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.js" afterDir="false" />
-    </list>
+    <list default="true" id="03a4626e-e2fa-4f45-b412-cf4df3550c0e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,7 +64,7 @@
       <workItem from="1715083220535" duration="12315000" />
       <workItem from="1715181298896" duration="3312000" />
       <workItem from="1715271454684" duration="11000" />
-      <workItem from="1715530694366" duration="7133000" />
+      <workItem from="1715530694366" duration="7818000" />
     </task>
     <servers />
   </component>
