@@ -15,9 +15,14 @@ function CardService({ service }) {
         />
       </Link>
       <div className="card-details">
-        <h3>{service.activityTypeId} - FIX</h3>
-        <p>Pet Size: {service.petSize}</p>
+        <h3>{service.activityTypeName}</h3>
+        <p>
+          Pet size:{" "}
+          {service.petSize.charAt(0) + service.petSize.slice(1).toLowerCase()}
+        </p>
+
         <p>Price: ${service.price}</p>
+        <p className="posted-by">Posted by: {service.user} </p>
       </div>
     </div>
   );

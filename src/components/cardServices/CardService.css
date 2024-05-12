@@ -108,6 +108,10 @@
   padding: 10px;
 }
 
+.posted-by {
+  font-weight: bold;
+}
+
 .card-details h3 {
   margin-top: 0;
   margin-bottom: 5px;
