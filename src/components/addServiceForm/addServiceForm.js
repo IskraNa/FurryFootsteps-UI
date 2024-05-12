@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './addServiceForm.css'; // Import the CSS file
+import DateTimePicker from 'react-datetime-picker';
 
 const AddServiceForm = () => {
     const [formData, setFormData] = useState({
@@ -38,8 +39,6 @@ const AddServiceForm = () => {
             document.getElementById("availableTime").value = ''; // Clear the input field after adding the time
         }
     };
-
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -139,12 +138,6 @@ const AddServiceForm = () => {
                             <li key={index}>{time}</li>
                         ))}
                     </ul>
-
-
-
-
-
-
                     <label htmlFor="picture" className="choose-picture-label">
                         Choose Photo of Pet
                     </label>
