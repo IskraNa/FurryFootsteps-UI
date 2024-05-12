@@ -8,7 +8,9 @@ const AddServiceForm = () => {
         petType: '',
         petSize: '',
         location: '',
-        description: ''
+        description: '',
+        availableTimes: []
+
     });
 
     const handleInputChange = (event) => {
@@ -25,6 +27,19 @@ const AddServiceForm = () => {
             picture: file // Update the state with the selected file
         });
     };
+
+    const handleAddTime = () => {
+        const newTime = document.getElementById("availableTime").value.trim();
+        if (newTime) {
+            setFormData(prevFormData => ({
+                ...prevFormData,
+                availableTimes: [...prevFormData.availableTimes, newTime]
+            }));
+            document.getElementById("availableTime").value = ''; // Clear the input field after adding the time
+        }
+    };
+
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -105,6 +120,29 @@ const AddServiceForm = () => {
                             borderRadius: '12px',
                         }}
                     />
+                    <div>
+                        <label htmlFor="availableTime" className="choose-picture-label">
+                            Add Available Time:
+                        </label>
+                        <input
+                            type="text"
+                            id="availableTime"
+                            name="availableTime"
+                            placeholder="Enter available time (e.g., Monday 9:00 AM - 5:00 PM)"
+                            required
+                        />
+                        <button type="button" onClick={handleAddTime}>Add Time</button>
+                    </div>
+
+                    <ul>
+                        {formData.availableTimes.map((time, index) => (
+                            <li key={index}>{time}</li>
+                        ))}
+                    </ul>
+
+
+
+
 
 
                     <label htmlFor="picture" className="choose-picture-label">
