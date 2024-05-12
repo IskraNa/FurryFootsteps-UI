@@ -3,10 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="03a4626e-e2fa-4f45-b412-cf4df3550c0e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cardServices/CardService.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardServices/CardService.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cardServices/CardServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardServices/CardServices.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cardServices/serviceData.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardServices/serviceData.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +36,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Marija Dimitrova/OneDrive/Desktop/FurryFootsteps-API&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -66,7 +65,10 @@
       <workItem from="1714141927226" duration="6498000" />
       <workItem from="1714335368429" duration="5379000" />
       <workItem from="1714409917914" duration="471000" />
-      <workItem from="1715083220535" duration="8902000" />
+      <workItem from="1715083220535" duration="12315000" />
+      <workItem from="1715181298896" duration="3312000" />
+      <workItem from="1715271454684" duration="11000" />
+      <workItem from="1715530694366" duration="3431000" />
     </task>
     <servers />
   </component>
