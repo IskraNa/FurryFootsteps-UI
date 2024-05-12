@@ -10,6 +10,7 @@ import LoginPage from './views/LoginPage';
 import AddServicePage from './views/AddServicePage';
 import ServicesPage from './views/ServicesPage';
 import ServiceDetailsPage from './views/ServiceDetailsPage';
+import PostPage from "./views/PostPage";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                 <Route path="/addService" element={<AddServicePage />} exact />
                 <Route path="/services" element={<ServicesPage />} exact />
                 <Route path="/details/:id" element={<ServiceDetailsPage />} />
+                <Route path="/posts" element={<PostPage/>} exact />
             </Routes>
             <Footer />
         </Router>

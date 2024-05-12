@@ -35,6 +35,10 @@
     margin-right: 0;
 }
 
+.post-card:hover {
+    transform: translateY(-5px);
+}
+
 .card-image {
     width: 100%;
     max-width: 410px;
