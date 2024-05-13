@@ -13,41 +13,6 @@ import Rectangle6 from '../assets/Rectangle6.png';
 import Rectangle7 from '../assets/Rectangle7.png';
 import RectangleNav from "../assets/rectangle-nav.png";
 
-
-// const AboutPage = () => {
-//     return (
-//         <div>
-//             <Navbar />
-//             <div className="about-page">
-//                 <Container>
-//                     <Row className="about-elements">
-//                         {/* Column for the text content */}
-//                         <Col md={6}>
-//                             <h1 className="title">Welcome To Furry Footsteps!</h1>
-//                             <p className="description">
-//                                 We're your one-stop destination for premium pet care services. From grooming and training to daycare and boarding, we offer everything your furry friend needs to thrive. Our experienced team provides personalized care tailored to your pet's unique needs, ensuring they feel safe and loved every step of the way. Join the Furry Footsteps family today and give your pet the exceptional care they deserve.
-//                             </p>
-//                         </Col>
-//
-//                         {/* Column for the image and decorative shapes */}
-//                         <Col md={6} className="about-container">
-//                             {/* All the rectangle images */}
-//                             <img src={Rectangle1} className="rectangle rectangle-1" alt="Decorative Shape" />
-//                             {/* ...other rectangles... */}
-//                             {/* The woman and dog image */}
-//                             <div className="woman-hugging-dog">
-//                                 <img src={WomanHuggingDog} alt="Woman hugging dog" />
-//                             </div>
-//                         </Col>
-//                     </Row>
-//                 </Container>
-//             </div>
-//         </div>
-//     );
-// };
-//
-// export default AboutPage;
-
 const AboutPage = () => {
     return (
         <div>
