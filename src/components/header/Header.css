@@ -37,12 +37,15 @@
     background-clip: text;
     text-fill-color: transparent;
 }
-
+.userName{
+    display:block;
+    float:right;
+}
 .explore-button {
     position: absolute;
     left: 227px;
     transform: translateX(-50%);
-    top: 250px;
+    top: 350px;
     display: flex;
     justify-content: center;
     align-items: center;

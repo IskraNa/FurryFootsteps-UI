@@ -5,7 +5,8 @@ import CategoryPage from './views/CategoryPage';
 import AboutPage from './views/AboutPage';
 import ContactPage from './views/ContactPage';
 import Footer from './components/footer/Footer';
-import RegistrationPage from './views/RegistrationPage';
+import RegistrationPage from './views/RegistrationPage'
+import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import LoginPage from './views/LoginPage';
 import AddServicePage from './views/AddServicePage';
 import ServicesPage from './views/ServicesPage';
@@ -15,6 +16,7 @@ import PostPage from "./views/PostPage";
 function App() {
     return (
         <Router>
+            <ScrollToTop/>
             <Routes>
                 <Route path="/" element={<HomePage />} exact />
                 <Route path="/category" element={<CategoryPage />} exact />
