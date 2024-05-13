@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
@@ -9,6 +9,12 @@ import SearchBar from '../SearchBar';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
+    const [userName, setUserName] = useState('');
+
+    const handleLogout = () => {
+        localStorage.removeItem('userData');
+        window.location.reload();
+    };
 
     const handleClick = () => {
         setOpen(!open);
@@ -19,12 +25,17 @@ const Navbar = () => {
     };
 
     useEffect(() => {
+        const User = JSON.parse(localStorage.getItem('userData'));
+        if (User && User.name) {
+            setUserName(User.name);
+        }
+
         const handleResize = () => {
             if (window.innerWidth > 950) {
                 setOpen(false);
             }
         };
-
+        
         handleResize();
 
         window.addEventListener('resize', handleResize);
@@ -64,15 +75,29 @@ const Navbar = () => {
                         Contact
                     </Link>
                 </li>
-                <li className="nav-buttons">
-
-                     <Link to="/register"> <img src={SignUpIcon} alt="Signup" onClick={closeMenu} /></Link>
-                     <Link to="/login"><img src={LogInIcon} alt="LogIn" onClick={closeMenu} /></Link>
-                </li>
-                { !open ? <li className="nav-search">
-                            <SearchBar></SearchBar>
-                        </li> : ""
-                }
+                {userName && (
+                    <React.Fragment>
+                        <li className="nav-item">
+                            <div className="userName">
+                                <h1> {userName && <span>{userName}</span>}</h1>
+                            </div>
+                        </li>
+                        <li className="logout-btn"><button onClick={handleLogout}>Logout</button></li>
+                    </React.Fragment>
+                )}
+                {!userName && (
+                    <React.Fragment>
+                        <li className="nav-buttons">
+                            <Link to="/register"><img src={SignUpIcon} alt="Signup" onClick={closeMenu} /></Link>
+                            <Link to="/login"><img src={LogInIcon} alt="LogIn" onClick={closeMenu} /></Link>
+                        </li>
+                    </React.Fragment>
+                )}
+                {!open && !userName && (
+                    <li className="nav-search">
+                        <SearchBar></SearchBar>
+                    </li>
+                )}
             </ul>
         </nav>
     );

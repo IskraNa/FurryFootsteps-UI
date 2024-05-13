@@ -120,7 +120,7 @@ const RegistrationForm = () => {
                         required
                     />
                 </div>
-                <button type="submit">Register</button>
+                <button type="submit">REGISTER</button>
             </form>
         </div>
     );
