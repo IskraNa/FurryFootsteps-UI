@@ -1,0 +1,26 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Petar Petrovski",
+      "phone": "+21293809827",
+      "email": "Yemmabakpierre@gmail.com",
+      "location": "Skopje, North Macedonia",
+      "image": "../../assets/pet_adoption.png"
+    }
+  ],
+  "services": [
+    {
+      "id": 1,
+      "name": "Adoption",
+      "description": "Size: Small - Location: Skopje, Macedonia",
+      "image": ""
+    },
+    {
+      "id": 2,
+      "name": "Dog Walking",
+      "description": "Size: Small - Location: Skopje, Macedonia",
+      "image": "../../assets/pet_training.png"
+    }
+  ]
+}

@@ -1,105 +1,98 @@
 .app-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 }
 
 .content-container {
-    margin-top: 20px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.add-service-form h2 {
-    margin-bottom: 50px;
-    text-align: center;
-    color: #6F4E90;
-    font-weight: bold;
-}
-
-.add-service-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.add-service-form button {
-    width: 100%;
-    padding: 15px;
-    background-color: #6F4E90;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-}
-
-.add-service-form button:hover {
-    background-color: #8CCC88;
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .add-service-form {
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    background-color: #FFFFFF;
-    border-radius: 12px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-service-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: #6f4e90;
+  font-weight: bold;
+}
+
+.add-service-form label {
+  display: block;
+  margin-bottom: 5px;
+  color: #6f4e90;
+}
+
+.add-service-form button {
+  width: 100%;
+  padding: 15px;
+  background-color: #6f4e90;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.add-service-form button:hover {
+  background-color: #8ccc88;
 }
 
 .add-service-form input[type="text"],
 .add-service-form textarea,
-.add-service-form select {
-    width: 100%;
-    padding: 15px;
-    margin-bottom: 15px;
-    border: 2px solid #6F4E90;
-    border-radius: 12px;
-    box-sizing: border-box; /* Ensures padding is included in width */
+.add-service-form select,
+.add-service-form input[type="number"] {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 2px solid #6f4e90;
+  border-radius: 12px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
-
-
 
 .add-service-form input[type="text"]:focus,
 .add-service-form textarea:focus,
-.add-service-form select:focus {
-    border-color: #8CCC88;
-    outline: none;
+.add-service-form select:focus,
+.add-service-form input[type="number"]:focus {
+  border-color: #8ccc88;
+  outline: none;
 }
 
-.add-service-form button {
-    width: 100%;
-    padding: 15px;
-    background-color: #6F4E90;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-}
-
-.add-service-form button:hover {
-    background-color: #8CCC88;
-}
 .choose-picture-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #6F4E90; /* Text color */
+  display: block;
+  margin-bottom: 5px;
+  color: #6f4e90;
 }
 
-.react-datetime-picker button {
-    /* Your custom styles here */
-    width: 20%;
-    padding: 10px;
-    background-color: white;
-    color: black;
-    cursor: pointer;
-    border-radius: unset;
+.datetime-picker-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
 }
 
+.datetime-picker {
+  width: 45%;
+  max-width: 250px;
+}
 
+.number-input {
+  -moz-appearance: textfield;
+}
 
-
-
-
-
-
+.number-input::-webkit-inner-spin-button,
+.number-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

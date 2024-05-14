@@ -1,16 +1,17 @@
 import React, { useState } from "react";
-import "./addServiceForm.css"; // Import the CSS file
+import "./addServiceForm.css";
 import DateTimePicker from "react-datetime-picker";
+import { useLocation } from "react-router-dom";
 
-const AddServiceForm = () => {
+const AddServiceForm = ({ activityTypes, petTypes }) => {
   const [formData, setFormData] = useState({
-    type: "",
+    description: "",
+    petSize: "",
     price: "",
     petType: "",
-    petSize: "",
-    location: "",
-    description: "",
-    availableTimes: [],
+    activityType: "",
+    availabilities: [{ dateTimeFrom: new Date(), dateTimeTo: new Date() }],
+    picture: [],
   });
 
   const handleInputChange = (event) => {
@@ -20,29 +21,37 @@ const AddServiceForm = () => {
       [name]: value,
     });
   };
+
   const handleFileChange = (event) => {
-    const file = event.target.files[0]; // Get the first selected file
+    const file = event.target.files[0];
     setFormData({
       ...formData,
-      picture: file, // Update the state with the selected file
+      picture: file,
+    });
+  };
+
+  const handleDateTimeChange = (index, field, value) => {
+    const updatedAvailabilities = [...formData.availabilities];
+    updatedAvailabilities[index][field] = value;
+    setFormData({
+      ...formData,
+      availabilities: updatedAvailabilities,
     });
   };
 
   const handleAddTime = () => {
-    const newTime = document.getElementById("availableTime").value.trim();
-    if (newTime) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        availableTimes: [...prevFormData.availableTimes, newTime],
-      }));
-      document.getElementById("availableTime").value = ""; // Clear the input field after adding the time
-    }
+    setFormData({
+      ...formData,
+      availabilities: [
+        ...formData.availabilities,
+        { dateTimeFrom: new Date(), dateTimeTo: new Date() },
+      ],
+    });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formData);
-    // Add further logic here, such as form validation and submission
   };
 
   return (
@@ -51,54 +60,59 @@ const AddServiceForm = () => {
         <h2>Add a Service</h2>
         <form onSubmit={handleSubmit}>
           <select
-            name="type"
-            value={formData.type}
+            name="activityType"
+            value={formData.activityType}
             onChange={handleInputChange}
             required
-            className="form-input" // Add this className to apply the common styling
+            className="form-input"
           >
             <option value="" disabled hidden style={{ color: "gray" }}>
               Select Type of Service
             </option>
-            <option value="Pet Walking">Pet Walking</option>
-            <option value="Pet Grooming">Pet Grooming</option>
-            <option value="Pet Adoption">Pet Adoption</option>
-            <option value="Veterinary Services">Veterinary Services</option>
-            <option value="Pet Training">Pet Training</option>
-            <option value="Pet Events">Pet Events</option>
-            {/* Add more options as needed */}
+            {activityTypes.map((activityType) => (
+              <option key={activityType.id} value={activityType.id}>
+                {activityType.type}
+              </option>
+            ))}
           </select>
 
           <input
-            type="text"
+            type="number"
             name="price"
             placeholder="Price of Service"
             value={formData.price}
             onChange={handleInputChange}
             required
+            className="form-input number-input"
           />
-          <input
-            type="text"
-            name="petTypeq"
-            placeholder="Type of Pet"
+
+          <select
+            name="petType"
             value={formData.petType}
             onChange={handleInputChange}
             required
-          />
+            className="form-input"
+          >
+            {petTypes.map((petType) => (
+              <option key={petType.id} value={petType.id}>
+                {petType.type}
+              </option>
+            ))}
+          </select>
+
           <select
             name="petSize"
             value={formData.petSize}
             onChange={handleInputChange}
             required
-            className="form-input" // Add this className to apply the common styling
+            className="form-input"
           >
             <option value="" disabled hidden style={{ color: "gray" }}>
               Select Size of Pet
             </option>
-            <option value="Small">Small</option>
-            <option value="Medium">Medium</option>
-            <option value="Large">Large</option>
-            {/* Add more options as needed */}
+            <option value="SMALL">Small</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="LARGE">Large</option>
           </select>
           <input
             type="text"
@@ -121,27 +135,45 @@ const AddServiceForm = () => {
               borderRadius: "12px",
             }}
           />
-          <div>
-            <label htmlFor="availableTime" className="choose-picture-label">
-              Add Available Time:
-            </label>
-            <input
-              type="text"
-              id="availableTime"
-              name="availableTime"
-              placeholder="Enter available time (e.g., 30-04-2024 12:00 - 30-04-2024 17:00)"
-              required
-            />
-            <button type="button" onClick={handleAddTime}>
-              Add Time
-            </button>
-          </div>
 
-          <ul>
-            {formData.availableTimes.map((time, index) => (
-              <li key={index}>{time}</li>
+          {/* <div>
+            <label htmlFor="dateTimeFrom" className="choose-picture-label">
+              Date and Time From:
+            </label>
+            {formData.availabilities.map((availability, index) => (
+              <div key={index} className="datetime-picker-container">
+                <DateTimePicker
+                  className="datetime-picker"
+                  value={availability.dateTimeFrom}
+                  onChange={(value) =>
+                    handleDateTimeChange(index, "dateTimeFrom", value)
+                  }
+                />
+              </div>
             ))}
-          </ul>
+          </div> */}
+
+          {/* <div>
+            <label htmlFor="dateTimeTo" className="choose-picture-label">
+              Date and Time To:
+            </label>
+            {formData.availabilities.map((availability, index) => (
+              <div key={index} className="datetime-picker-container">
+                <DateTimePicker
+                  className="datetime-picker"
+                  value={availability.dateTimeTo}
+                  onChange={(value) =>
+                    handleDateTimeChange(index, "dateTimeTo", value)
+                  }
+                />
+              </div>
+            ))}
+          </div> */}
+
+          <button type="button" onClick={handleAddTime}>
+            Add Time
+          </button>
+
           <label htmlFor="picture" className="choose-picture-label">
             Choose Photo of Pet
           </label>
@@ -153,7 +185,6 @@ const AddServiceForm = () => {
             onChange={handleFileChange}
             className="form-input"
             required
-            // style={{ display: 'none' }}
           />
 
           <div style={{ marginTop: "50px" }}>
