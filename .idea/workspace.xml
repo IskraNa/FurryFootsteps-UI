@@ -1,9 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03a4626e-e2fa-4f45-b412-cf4df3550c0e" name="Changes" comment="Profile Details Page">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="8be82916-96dc-4b4c-b16f-25133109ee1d" name="Changes" comment="Profile Details Page">
+      <change afterPath="$PROJECT_DIR$/src/components/ScrollToTop/ScrollToTop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/activityType/getAllActivityTypes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/axiosInstance.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/petType/getAllPetTypes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/postsService/getAllPosts.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/services/postsService/getPostById.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_05_2024_15_43__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_05_2024_15_43__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_05_2024_17_43__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_07_05_2024_17_43__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_05_2024_18_37__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_09_05_2024_18_37__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_05_2024_14_16__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13_05_2024_14_16__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_04_2024_19_57__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26_04_2024_19_57__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/addServiceForm/addServiceForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardCategories/CardCategory.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardCategories/CardCategory.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardCategories/CardCategory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardCategories/CardCategory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardServices/CardService.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardServices/CardService.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardServices/CardServices.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardServices/CardServices.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardServices/CommentsSection.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardServices/CommentsSection.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardServices/CommentsSection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardServices/CommentsSection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardServices/ServiceDetails.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardServices/ServiceDetails.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cardServices/ServiceDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cardServices/ServiceDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/Header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/Header.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/loginForm/LoginForm.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/loginForm/LoginForm.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/loginForm/LoginForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/loginForm/LoginForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navigation/NavBar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navigation/NavBar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/navigation/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/navigation/NavBar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/registrationForm/RegistrationForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/registrationForm/RegistrationForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/AddServicePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/AddServicePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/HomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/HomePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/LoginPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/LoginPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/ServicesPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/ServicesPage.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,20 +65,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "C:/Users/kovac/WebstormProjects/FurryFootsteps-UI/src/assets",
-    "list.type.of.created.stylesheet": "CSS",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.Mappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/kovac/WebstormProjects/FurryFootsteps-UI/src/assets&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.Mappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\kovac\WebstormProjects\FurryFootsteps-UI\src\assets" />
