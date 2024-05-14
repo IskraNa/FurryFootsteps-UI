@@ -14,10 +14,15 @@ import ServiceDetailsPage from "./views/ServiceDetailsPage";
 import PostPage from "./views/PostPage";
 import getAllActivityTypes from "../src/services/activityType/getAllActivityTypes.js";
 import getAllPetTypes from "./services/petType/getAllPetTypes.js";
+import getAllPosts from "./services/postsService/getAllPosts.js";
 
 function App() {
   const [activityTypes, setActivityTypes] = useState([]);
   const [petTypes, setPetTypes] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [activityTypeId, setActivityTypeId] = useState(null);
 
   useEffect(() => {
     const fetchActivityTypes = async () => {
@@ -44,11 +49,31 @@ function App() {
     fetchPetTypes();
   }, []);
 
+  const refreshPosts = async (page, activityTypeId) => {
+    try {
+      const response = await getAllPosts(page - 1, activityTypeId);
+      setPosts(response.content);
+      setTotalPages(response.totalPages);
+      console.log("postovi", posts);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  const handleActivityTypeClick = (id) => {
+    setCurrentPage(1);
+    setActivityTypeId(id === activityTypeId ? null : id);
+  };
+
   return (
     <Router>
       <ScrollToTop />
       <Routes>
-        <Route path="/" element={<HomePage />} exact />
+        <Route
+          path="/"
+          element={<HomePage onClick={handleActivityTypeClick} />}
+          exact
+        />
         <Route path="/category" element={<CategoryPage />} exact />
         <Route path="/about" element={<AboutPage />} exact />
         <Route path="/contact" element={<ContactPage />} exact />
@@ -63,7 +88,18 @@ function App() {
         />
         <Route
           path="/services"
-          element={<ServicesPage activityTypes={activityTypes} />}
+          element={
+            <ServicesPage
+              activityTypes={activityTypes}
+              posts={posts}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
+              activityTypeId={activityTypeId}
+              refreshPosts={refreshPosts}
+              handleActivityTypeClick={handleActivityTypeClick}
+            />
+          }
           exact
         />
         <Route path="/details/:id" element={<ServiceDetailsPage />} />

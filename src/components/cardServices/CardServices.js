@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./CardService.css";
 import { Link } from "react-router-dom";
-import getAllPosts from "../../services/postsService/getAllPosts.js";
 
 function CardService({ service }) {
   return (
@@ -49,30 +48,19 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
   );
 }
 
-function CardServices({ activityTypes }) {
-  const [posts, setPosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [activityTypeId, setActivityTypeId] = useState(null);
-
-  const refreshPosts = async (page, activityTypeId) => {
-    try {
-      const response = await getAllPosts(page - 1, activityTypeId);
-      setPosts(response.content);
-      setTotalPages(response.totalPages);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    }
-  };
-
+function CardServices({
+  activityTypes,
+  posts,
+  currentPage,
+  setCurrentPage,
+  totalPages,
+  activityTypeId,
+  refreshPosts,
+  handleActivityTypeClick,
+}) {
   useEffect(() => {
     refreshPosts(currentPage, activityTypeId);
   }, [currentPage, activityTypeId]);
-
-  const handleActivityTypeClick = (id) => {
-    setCurrentPage(1);
-    setActivityTypeId(id === activityTypeId ? null : id);
-  };
 
   return (
     <div className="App">
@@ -110,15 +98,6 @@ function CardServices({ activityTypes }) {
           onPageChange={setCurrentPage}
         />
       </div>
-      <Link
-        to={{
-          pathname: "/addService",
-          state: { activityTypes },
-        }}
-        className="add-service-link"
-      >
-        <button className="add-service-button">+</button>
-      </Link>
     </div>
   );
 }

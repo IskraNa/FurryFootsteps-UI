@@ -136,7 +136,7 @@ const AddServiceForm = ({ activityTypes, petTypes }) => {
             }}
           />
 
-          <div>
+          {/* <div>
             <label htmlFor="dateTimeFrom" className="choose-picture-label">
               Date and Time From:
             </label>
@@ -151,7 +151,7 @@ const AddServiceForm = ({ activityTypes, petTypes }) => {
                 />
               </div>
             ))}
-          </div>
+          </div> */}
 
           {/* <div>
             <label htmlFor="dateTimeTo" className="choose-picture-label">
