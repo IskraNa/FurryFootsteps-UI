@@ -32,19 +32,15 @@ const LoginForm = () => {
                 throw new Error('Login failed');
             }
             
-            const sessionID = response.headers.get('Set-Cookie');
-            document.cookie = sessionID;
             const data = await response.json();
             console.log('Login successful:', data);
             localStorage.setItem('userData', JSON.stringify(data));    
-            console.log(document.cookie);        
             setFormData({
                 email: '',
                 password: '',
             });
             // const User = JSON.parse(localStorage.getItem('userData'))
             navigate('/');
-            console.log(document.cookie);
             
         } catch (error) {
             console.error('Login error:', error.message);
