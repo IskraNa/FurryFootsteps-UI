@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./ProfileDetailsForm.css";
 
@@ -37,23 +37,27 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
         <div className="services-details">
           <h2>Your Posts</h2>
           <div className="services-list">
-            {userPosts.map((service) => (
-              <div key={service.id} className="service-item">
-                <Link to={`/details/${service.id}`}>
-                  <img
-                    //   src={service.picture}
-                    src={require("../../assets/post1.jpg")}
-                    alt={service.activityTypeName}
-                    className="service-image"
-                  />
-                </Link>
+            {userPosts.length === 0 ? (
+              <p>You don't have any posts. Create here!</p>
+            ) : (
+              userPosts.map((service) => (
+                <div key={service.id} className="service-item">
+                  <Link to={`/details/${service.id}`}>
+                    <img
+                      //   src={service.picture}
+                      src={require("../../assets/post1.jpg")}
+                      alt={service.activityTypeName}
+                      className="service-image"
+                    />
+                  </Link>
 
-                <h4>{service.activityTypeName}</h4>
-                <p>{service.description}</p>
-                <button className="button edit">Edit</button>
-                <button className="button delete"></button>
-              </div>
-            ))}
+                  <h4>{service.activityTypeName}</h4>
+                  <p>{service.description}</p>
+                  <button className="button edit">Edit</button>
+                  <button className="button delete"></button>
+                </div>
+              ))
+            )}
           </div>
           <Link to="/addService" className="button add-service">
             Add a new post +

@@ -28,6 +28,7 @@ function App() {
   const [activityTypeId, setActivityTypeId] = useState(null);
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const fetchActivityTypes = async () => {
@@ -59,7 +60,6 @@ function App() {
       const response = await getAllPosts(page - 1, activityTypeId);
       setPosts(response.content);
       setTotalPages(response.totalPages);
-      console.log("postovi", posts);
     } catch (error) {
       console.error("Error fetching posts:", error);
     }
@@ -69,29 +69,27 @@ function App() {
     try {
       const response = await getUserProfile(id);
       setUser(response);
-      console.log("user", user);
     } catch (error) {
       console.error("Error fetching user:", error);
     }
   };
 
-  // TODO GET LOGGED IN USER CREDENTIALS
-  useEffect(() => {
-    refreshUser(1);
-  }, []);
-
   const refreshUserPosts = async (id) => {
     try {
       const response = await getUserPosts(id);
       setUserPosts(response);
-      console.log("userPosts", userPosts);
     } catch (error) {
       console.error("Error fetching user posts:", error);
     }
   };
 
   useEffect(() => {
-    refreshUserPosts(1);
+    const userDataString = localStorage.getItem("userData");
+    const userDataObject = JSON.parse(userDataString);
+    const userId = userDataObject.id;
+    setUserId(userId);
+    refreshUser(userId);
+    refreshUserPosts(userId);
   }, []);
 
   const handleActivityTypeClick = (id) => {
@@ -116,7 +114,11 @@ function App() {
         <Route
           path="/addService"
           element={
-            <AddServicePage activityTypes={activityTypes} petTypes={petTypes} />
+            <AddServicePage
+              activityTypes={activityTypes}
+              petTypes={petTypes}
+              userId={userId}
+            />
           }
           exact
         />

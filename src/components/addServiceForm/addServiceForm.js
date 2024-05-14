@@ -3,7 +3,7 @@ import "./addServiceForm.css";
 import DateTimePicker from "react-datetime-picker";
 import axiosInstance from "../../services/axiosInstance";
 
-const AddServiceForm = ({ activityTypes, petTypes }) => {
+const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
   const [formData, setFormData] = useState({
     description: "",
     petSize: "",
@@ -12,7 +12,7 @@ const AddServiceForm = ({ activityTypes, petTypes }) => {
     activityTypeId: "",
     availabilities: [],
     picture: [],
-    userId: 1,
+    userId: userId,
   });
 
   const handleInputChange = (event) => {
@@ -74,7 +74,7 @@ const AddServiceForm = ({ activityTypes, petTypes }) => {
         activityTypeId: "",
         availabilities: [{ dateTimeFrom: "", dateTimeTo: "" }],
         picture: [],
-        userId: 1,
+        userId: userId,
       });
     } catch (error) {
       console.error("Error occurred while sending data to server:", error);
