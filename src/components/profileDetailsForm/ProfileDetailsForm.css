@@ -44,6 +44,7 @@
   margin-right: 20px;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
 }
 
 .button {
@@ -79,8 +80,24 @@
   color: #967bb6;
   border-radius: 4px;
   background: none;
+  text-decoration: none;
+  font-size: 13px;
 }
 
 .button:hover {
   opacity: 0.9;
+}
+
+.service-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.user-image {
+  width: 60px; /* Adjust as needed */
+  height: 60px; /* Adjust as needed */
+  border-radius: 50%; /* Makes the image round */
+  object-fit: cover; /* Preserve aspect ratio and cover the entire space */
 }

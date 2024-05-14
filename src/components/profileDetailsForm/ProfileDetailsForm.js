@@ -1,4 +1,5 @@
-// import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./ProfileDetailsForm.css";
 
 const ProfileDetailsForm = ({ user, userPosts }) => {
@@ -9,12 +10,12 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
   return (
     <div className="profile-details-container">
       <div className="profile-header">
-        Profile Details
         <img
-          src={user.image}
+          src={require("../../assets/post2.png")}
           alt={user.name + " " + user.surname}
           className="user-image"
-        />
+        />{" "}
+        Profile Details
       </div>
       <div className="details-flex">
         <div className="profile-info">
@@ -34,14 +35,19 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
           <button className="button edit-information">Edit Information</button>
         </div>
         <div className="services-details">
+          <h2>Your Posts</h2>
           <div className="services-list">
             {userPosts.map((service) => (
               <div key={service.id} className="service-item">
-                <img
-                  src={service.image}
-                  alt={service.activityTypeName}
-                  className="service-image"
-                />
+                <Link to={`/details/${service.id}`}>
+                  <img
+                    //   src={service.picture}
+                    src={require("../../assets/post1.jpg")}
+                    alt={service.activityTypeName}
+                    className="service-image"
+                  />
+                </Link>
+
                 <h4>{service.activityTypeName}</h4>
                 <p>{service.description}</p>
                 <button className="button edit">Edit</button>
@@ -49,7 +55,9 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
               </div>
             ))}
           </div>
-          <button className="button add-service">Add a new post +</button>
+          <Link to="/addService" className="button add-service">
+            Add a new post +
+          </Link>
         </div>
       </div>
     </div>

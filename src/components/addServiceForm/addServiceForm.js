@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import "./addServiceForm.css";
 import DateTimePicker from "react-datetime-picker";
-import { useLocation } from "react-router-dom";
+import axiosInstance from "../../services/axiosInstance";
 
 const AddServiceForm = ({ activityTypes, petTypes }) => {
   const [formData, setFormData] = useState({
     description: "",
     petSize: "",
     price: "",
-    petType: "",
-    activityType: "",
-    availabilities: [{ dateTimeFrom: new Date(), dateTimeTo: new Date() }],
+    petTypeId: "",
+    activityTypeId: "",
+    availabilities: [],
     picture: [],
+    userId: 1,
   });
 
   const handleInputChange = (event) => {
@@ -24,10 +25,20 @@ const AddServiceForm = ({ activityTypes, petTypes }) => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setFormData({
-      ...formData,
-      picture: file,
-    });
+
+    // Read the file as a Blob
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      // Convert the Blob to a Uint8Array
+      const arrayBuffer = reader.result;
+      const uint8Array = new Uint8Array(arrayBuffer);
+      // Set the Uint8Array as the picture data in the formData
+      setFormData({
+        ...formData,
+        picture: Array.from(uint8Array),
+      });
+    };
+    reader.readAsArrayBuffer(file);
   };
 
   const handleDateTimeChange = (index, field, value) => {
@@ -49,9 +60,25 @@ const AddServiceForm = ({ activityTypes, petTypes }) => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
+    try {
+      const response = await axiosInstance.post("/posts/add", formData);
+      console.log("Response from server:", response.data);
+
+      setFormData({
+        description: "",
+        petSize: "",
+        price: "",
+        petTypeId: "",
+        activityTypeId: "",
+        availabilities: [{ dateTimeFrom: "", dateTimeTo: "" }],
+        picture: [],
+        userId: 1,
+      });
+    } catch (error) {
+      console.error("Error occurred while sending data to server:", error);
+    }
   };
 
   return (
@@ -60,15 +87,15 @@ const AddServiceForm = ({ activityTypes, petTypes }) => {
         <h2>Add a Service</h2>
         <form onSubmit={handleSubmit}>
           <select
-            name="activityType"
-            value={formData.activityType}
+            name="activityTypeId"
+            value={formData.activityTypeId}
             onChange={handleInputChange}
             required
             className="form-input"
           >
-            <option value="" disabled hidden style={{ color: "gray" }}>
+            {/* <option value="default" disabled hidden style={{ color: "gray" }}>
               Select Type of Service
-            </option>
+            </option> */}
             {activityTypes.map((activityType) => (
               <option key={activityType.id} value={activityType.id}>
                 {activityType.type}
@@ -87,12 +114,15 @@ const AddServiceForm = ({ activityTypes, petTypes }) => {
           />
 
           <select
-            name="petType"
-            value={formData.petType}
+            name="petTypeId"
+            value={formData.petTypeId}
             onChange={handleInputChange}
             required
             className="form-input"
           >
+            {/* <option value="" disabled hidden style={{ color: "gray" }}>
+              Select Type of Pet
+            </option> */}
             {petTypes.map((petType) => (
               <option key={petType.id} value={petType.id}>
                 {petType.type}
@@ -107,21 +137,21 @@ const AddServiceForm = ({ activityTypes, petTypes }) => {
             required
             className="form-input"
           >
-            <option value="" disabled hidden style={{ color: "gray" }}>
+            {/* <option value="" disabled hidden style={{ color: "gray" }}>
               Select Size of Pet
-            </option>
+            </option> */}
             <option value="SMALL">Small</option>
             <option value="MEDIUM">Medium</option>
             <option value="LARGE">Large</option>
           </select>
-          <input
+          {/* <input
             type="text"
             name="location"
             placeholder="Location (City)"
             value={formData.location}
             onChange={handleInputChange}
             required
-          />
+          /> */}
           <textarea
             name="description"
             placeholder="Description"
