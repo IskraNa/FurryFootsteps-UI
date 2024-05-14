@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./CardService.css";
 import { Link } from "react-router-dom";
-import getAllPosts from "../../services/postsService/getAllPosts.js";
-import getAllActivityTypes from "../../services/activityType/getAllActivityTypes.js";
 
 function CardService({ service }) {
   return (
     <div className="card-service">
       <Link to={`/details/${service.id}`}>
         <img
-          //src={require(`../../assets/${service.image}`)}
           src={require(`../../assets/dog_walking.png`)}
           alt={service.serviceName}
         />
@@ -20,7 +17,6 @@ function CardService({ service }) {
           Pet size:{" "}
           {service.petSize.charAt(0) + service.petSize.slice(1).toLowerCase()}
         </p>
-
         <p>Price: ${service.price}</p>
         <p className="posted-by">Posted by: {service.user} </p>
       </div>
@@ -52,45 +48,19 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
   );
 }
 
-function CardServices() {
-  const [posts, setPosts] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [activityTypeId, setActivityTypeId] = useState(null);
-  const [activityTypes, setActivityTypes] = useState([]);
-
-  const refreshActivityTypes = async () => {
-    try {
-      const response = await getAllActivityTypes();
-      setActivityTypes(response);
-    } catch (error) {
-      console.error("Error fetching activity types:", error);
-    }
-  };
-
-  useEffect(() => {
-    refreshActivityTypes();
-  }, []);
-
-  const refreshPosts = async (page, activityTypeId) => {
-    try {
-      const response = await getAllPosts(page - 1, activityTypeId);
-      setPosts(response.content);
-      console.log("postovi", response.content);
-      setTotalPages(response.totalPages);
-    } catch (error) {
-      console.error("Error fetching posts:", error);
-    }
-  };
-
+function CardServices({
+  activityTypes,
+  posts,
+  currentPage,
+  setCurrentPage,
+  totalPages,
+  activityTypeId,
+  refreshPosts,
+  handleActivityTypeClick,
+}) {
   useEffect(() => {
     refreshPosts(currentPage, activityTypeId);
   }, [currentPage, activityTypeId]);
-
-  const handleActivityTypeClick = (id) => {
-    setCurrentPage(1);
-    setActivityTypeId(id === activityTypeId ? null : id);
-  };
 
   return (
     <div className="App">
