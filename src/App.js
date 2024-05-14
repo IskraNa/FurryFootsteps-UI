@@ -16,6 +16,7 @@ import ProfileDetailsPage from "./views/ProfileDetailsPage";
 import getAllActivityTypes from "../src/services/activityType/getAllActivityTypes.js";
 import getAllPetTypes from "./services/petType/getAllPetTypes.js";
 import getAllPosts from "./services/postsService/getAllPosts.js";
+import EditProfilePage from "./views/EditProfilePage";
 
 function App() {
     const [activityTypes, setActivityTypes] = useState([]);
@@ -106,6 +107,7 @@ function App() {
                 <Route path="/details/:id" element={<ServiceDetailsPage />} />
                 <Route path="/posts" element={<PostPage />} exact />
                 <Route path="/profile" element={<ProfileDetailsPage />} exact />
+                <Route path="/edit" element={<EditProfilePage />} exact />
             </Routes>
             <Footer />
         </Router>

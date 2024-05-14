@@ -1,11 +1,11 @@
-.register-container {
+.edit-profile-container {
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
 }
 
-.register-form {
+.edit-profile-form {
     width: 600px;
     padding: 20px;
     background-color: #f9f9f9;
@@ -18,23 +18,23 @@
 }
 
 
-.register-form h2 {
+.edit-profile-form h2 {
     margin-bottom: 50px;
     text-align: center;
     color: #6F4E90;
     font-weight: bold;
 }
 
-.register-form label {
+.edit-profile-form label {
     display: inline;
     margin-bottom: 5px;
 
 }
 
-.register-form input[type="text"],
-.register-form input[type="email"],
-.register-form input[type="tel"],
-.register-form input[type="password"] {
+.edit-profile-form input[type="text"],
+.edit-profile-form input[type="email"],
+.edit-profile-form input[type="tel"],
+.edit-profile-form input[type="password"] {
     width: 64%;
     padding: 15px;
     margin-bottom: 15px;
@@ -44,16 +44,49 @@
     display: inline;
 
 }
-.register-form input[type="text"]:focus,
-.register-form input[type="email"]:focus,
-.register-form input[type="tel"]:focus,
-.register-form input[type="password"]:focus {
+.edit-profile-form input[type="text"]:focus,
+.edit-profile-form input[type="email"]:focus,
+.edit-profile-form input[type="tel"]:focus,
+.edit-profile-form input[type="password"]:focus {
     border-color: #8CCC88;
     outline: none;
 
 }
 
-.register-form button {
+.file-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 15%;
+}
+
+.file-input-container label {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #6F4E90;
+    font-weight: bold;
+}
+
+.file-input-container img {
+    vertical-align: middle;
+    width: 24px;
+    height: auto;
+}
+.edit-profile-form .choose-file-button {
+    background-color: transparent;
+    color: #6F4E90;
+    padding: 5px 10px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block;
+    margin-right: 30px;
+}
+.choose-file-button:hover {
+    color: #8CCC88;
+}
+.edit-profile-form .save-button {
     width: 70%;
     padding: 15px;
     background-color: #6F4E90;
@@ -65,6 +98,7 @@
     margin-left: 15%;
 }
 
-.register-form button:hover {
+.edit-profile-form .save-button:hover {
     background-color: #8CCC88;
 }
+

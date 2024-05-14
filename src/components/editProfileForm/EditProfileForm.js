@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import './EditProfileForm.css'; // Import the CSS file
+import DateTimePicker from "react-datetime-picker";
+import { useLocation } from "react-router-dom";
 
-const RegistrationForm = () => {
+const EditProfileForm = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         phone: '',
         location: '',
         password: '',
-        repeatPassword: ''
+        repeatPassword: '',
+        picture: []
     });
 
     const handleInputChange = (event) => {
@@ -32,7 +35,7 @@ const RegistrationForm = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Registration failed');
+                throw new Error('');
             }
 
             const data = await response.json();
@@ -42,17 +45,22 @@ const RegistrationForm = () => {
                 email: '',
                 phone: '',
                 location: '',
-                password: '',
-                repeatPassword: ''
             });
         } catch (error) {
             console.error('Registration error:', error.message);
         }
     };
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        setFormData({
+            ...formData,
+            picture: file,
+        });
+    };
 
     return (
-        <div>
-            <h2>Register</h2>
+        <div className="edit-profile-form">
+            <h2>Edit Information</h2>
             <form onSubmit={handleSubmit}>
                 <div>
 
@@ -98,32 +106,24 @@ const RegistrationForm = () => {
                         required
                     />
                 </div>
-                <div>
-
+                <div className="file-input-container">
+                    <label htmlFor="picture" className="upload-image-label">
+                        Upload Image
+                    </label>
                     <input
-                        type="password"
-                        name="password"
-                        placeholder='Password'
-                        value={formData.password}
-                        onChange={handleInputChange}
+                        id="picture"
+                        type="file"
+                        accept="image/*"
+                        name="picture"
+                        onChange={handleFileChange}
+                        className="form-input"
                         required
                     />
-                </div>
-                <div>
-
-                    <input
-                        type="password"
-                        name="repeatPassword"
-                        placeholder='Repeat password'
-                        value={formData.repeatPassword}
-                        onChange={handleInputChange}
-                        required
-                    />
-                </div>
-                <button type="submit">REGISTER</button>
+                    </div>
+                <button type="submit" className="save-button">Save</button>
             </form>
         </div>
     );
 }
 
-export default RegistrationForm;
+export default EditProfileForm;
