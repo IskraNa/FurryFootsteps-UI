@@ -9,11 +9,32 @@ import SearchBar from '../SearchBar';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
-    const [userName, setUserName] = useState('');
+    const [user, setUser] = useState('');
 
-    const handleLogout = () => {
+    const handleLogout = async () => {
         localStorage.removeItem('userData');
         window.location.reload();
+        try {
+            const response = await fetch('http://localhost:8080/api/users/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            if (!response.ok) {
+                throw new Error('Logout failed');
+            }
+    
+            console.log('Logout successful');
+            
+            // Reload the window or navigate to the login page
+            window.location.reload();
+    
+        } catch (error) {
+            console.error('Logout error:', error.message);
+            // Handle logout error
+        }
     };
 
     const handleClick = () => {
@@ -25,11 +46,15 @@ const Navbar = () => {
     };
 
     useEffect(() => {
-        const User = JSON.parse(localStorage.getItem('userData'));
-        if (User && User.name) {
-            setUserName(User.name);
-        }
+        
+        
 
+        const User = JSON.parse(localStorage.getItem('userData'));
+        
+        if (User && User.name) {
+            setUser(User);
+        }
+        console.log(User)
         const handleResize = () => {
             if (window.innerWidth > 950) {
                 setOpen(false);
@@ -75,17 +100,17 @@ const Navbar = () => {
                         Contact
                     </Link>
                 </li>
-                {userName && (
+                {user && (
                     <React.Fragment>
                         <li className="nav-item">
                             <div className="userName">
-                                <h1> {userName && <span>{userName}</span>}</h1>
+                                <h1> {user && <span>{user.name}</span>}</h1>
                             </div>
                         </li>
                         <li className="logout-btn"><button onClick={handleLogout}>Logout</button></li>
                     </React.Fragment>
                 )}
-                {!userName && (
+                {!user && (
                     <React.Fragment>
                         <li className="nav-buttons">
                             <Link to="/register"><img src={SignUpIcon} alt="Signup" onClick={closeMenu} /></Link>
@@ -93,7 +118,7 @@ const Navbar = () => {
                         </li>
                     </React.Fragment>
                 )}
-                {!open && !userName && (
+                {!open && !user && (
                     <li className="nav-search">
                         <SearchBar></SearchBar>
                     </li>

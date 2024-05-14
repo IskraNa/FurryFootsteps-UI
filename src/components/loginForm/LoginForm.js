@@ -31,10 +31,10 @@ const LoginForm = () => {
             if (!response.ok) {
                 throw new Error('Login failed');
             }
-    
+            
             const data = await response.json();
             console.log('Login successful:', data);
-            localStorage.setItem('userData', JSON.stringify(data));            
+            localStorage.setItem('userData', JSON.stringify(data));    
             setFormData({
                 email: '',
                 password: '',
