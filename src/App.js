@@ -16,100 +16,137 @@ import ProfileDetailsPage from "./views/ProfileDetailsPage";
 import getAllActivityTypes from "../src/services/activityType/getAllActivityTypes.js";
 import getAllPetTypes from "./services/petType/getAllPetTypes.js";
 import getAllPosts from "./services/postsService/getAllPosts.js";
+import getUserProfile from "./services/userService/getUserProfile.js";
+import getUserPosts from "./services/userService/getUserPosts.js";
 
 function App() {
-    const [activityTypes, setActivityTypes] = useState([]);
-    const [petTypes, setPetTypes] = useState([]);
-    const [posts, setPosts] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
-    const [activityTypeId, setActivityTypeId] = useState(null);
+  const [activityTypes, setActivityTypes] = useState([]);
+  const [petTypes, setPetTypes] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [activityTypeId, setActivityTypeId] = useState(null);
+  const [user, setUser] = useState(null);
+  const [userPosts, setUserPosts] = useState([]);
 
-    useEffect(() => {
-        const fetchActivityTypes = async () => {
-            try {
-                const response = await getAllActivityTypes();
-                setActivityTypes(response);
-            } catch (error) {
-                console.error("Error fetching activity types:", error);
-            }
-        };
-
-        fetchActivityTypes();
-    }, []);
-
-    useEffect(() => {
-        const fetchPetTypes = async () => {
-            try {
-                const response = await getAllPetTypes();
-                setPetTypes(response);
-            } catch (error) {
-                console.error("Error fetching pet types:", error);
-            }
-        };
-        fetchPetTypes();
-    }, []);
-
-    const refreshPosts = async (page, activityTypeId) => {
-        try {
-            const response = await getAllPosts(page - 1, activityTypeId);
-            setPosts(response.content);
-            setTotalPages(response.totalPages);
-            console.log("postovi", posts);
-        } catch (error) {
-            console.error("Error fetching posts:", error);
-        }
+  useEffect(() => {
+    const fetchActivityTypes = async () => {
+      try {
+        const response = await getAllActivityTypes();
+        setActivityTypes(response);
+      } catch (error) {
+        console.error("Error fetching activity types:", error);
+      }
     };
 
-    const handleActivityTypeClick = (id) => {
-        setCurrentPage(1);
-        setActivityTypeId(id === activityTypeId ? null : id);
-    };
+    fetchActivityTypes();
+  }, []);
 
-    return (
-        <Router>
-            <ScrollToTop />
-            <Routes>
-                <Route
-                    path="/"
-                    element={<HomePage onClick={handleActivityTypeClick} />}
-                    exact
-                />
-                <Route path="/category" element={<CategoryPage />} exact />
-                <Route path="/about" element={<AboutPage />} exact />
-                <Route path="/contact" element={<ContactPage />} exact />
-                <Route path="/register" element={<RegistrationPage />} exact />
-                <Route path="/login" element={<LoginPage />} exact />
-                <Route
-                    path="/addService"
-                    element={
-                        <AddServicePage activityTypes={activityTypes} petTypes={petTypes} />
-                    }
-                    exact
-                />
-                <Route
-                    path="/services"
-                    element={
-                        <ServicesPage
-                            activityTypes={activityTypes}
-                            posts={posts}
-                            currentPage={currentPage}
-                            setCurrentPage={setCurrentPage}
-                            totalPages={totalPages}
-                            activityTypeId={activityTypeId}
-                            refreshPosts={refreshPosts}
-                            handleActivityTypeClick={handleActivityTypeClick}
-                        />
-                    }
-                    exact
-                />
-                <Route path="/details/:id" element={<ServiceDetailsPage />} />
-                <Route path="/posts" element={<PostPage />} exact />
-                <Route path="/profile" element={<ProfileDetailsPage />} exact />
-            </Routes>
-            <Footer />
-        </Router>
-    );
+  useEffect(() => {
+    const fetchPetTypes = async () => {
+      try {
+        const response = await getAllPetTypes();
+        setPetTypes(response);
+      } catch (error) {
+        console.error("Error fetching pet types:", error);
+      }
+    };
+    fetchPetTypes();
+  }, []);
+
+  const refreshPosts = async (page, activityTypeId) => {
+    try {
+      const response = await getAllPosts(page - 1, activityTypeId);
+      setPosts(response.content);
+      setTotalPages(response.totalPages);
+      console.log("postovi", posts);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+    }
+  };
+
+  const refreshUser = async (id) => {
+    try {
+      const response = await getUserProfile(id);
+      setUser(response);
+      console.log("user", user);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
+
+  // TODO GET LOGGED IN USER CREDENTIALS
+  useEffect(() => {
+    refreshUser(1);
+  }, []);
+
+  const refreshUserPosts = async (id) => {
+    try {
+      const response = await getUserPosts(id);
+      setUserPosts(response);
+      console.log("userPosts", userPosts);
+    } catch (error) {
+      console.error("Error fetching user posts:", error);
+    }
+  };
+
+  useEffect(() => {
+    refreshUserPosts(1);
+  }, []);
+
+  const handleActivityTypeClick = (id) => {
+    setCurrentPage(1);
+    setActivityTypeId(id === activityTypeId ? null : id);
+  };
+
+  return (
+    <Router>
+      <ScrollToTop />
+      <Routes>
+        <Route
+          path="/"
+          element={<HomePage onClick={handleActivityTypeClick} />}
+          exact
+        />
+        <Route path="/category" element={<CategoryPage />} exact />
+        <Route path="/about" element={<AboutPage />} exact />
+        <Route path="/contact" element={<ContactPage />} exact />
+        <Route path="/register" element={<RegistrationPage />} exact />
+        <Route path="/login" element={<LoginPage />} exact />
+        <Route
+          path="/addService"
+          element={
+            <AddServicePage activityTypes={activityTypes} petTypes={petTypes} />
+          }
+          exact
+        />
+        <Route
+          path="/services"
+          element={
+            <ServicesPage
+              activityTypes={activityTypes}
+              posts={posts}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              totalPages={totalPages}
+              activityTypeId={activityTypeId}
+              refreshPosts={refreshPosts}
+              handleActivityTypeClick={handleActivityTypeClick}
+            />
+          }
+          exact
+        />
+        <Route path="/details/:id" element={<ServiceDetailsPage />} />
+        <Route path="/posts" element={<PostPage />} exact />
+        <Route
+          path="/profile"
+          element={<ProfileDetailsPage user={user} userPosts={userPosts} />}
+          exact
+        />
+      </Routes>
+      <Footer />
+    </Router>
+  );
 }
 
 export default App;
