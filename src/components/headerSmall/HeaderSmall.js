@@ -48,8 +48,8 @@ const HeaderSmall = ({ user }) => {
           </Link>
         </li>
         <li className="nav-item-small">
-          <Link to="/category" className="nav-link-small" onClick={closeMenu}>
-            Category
+          <Link to="/services" className="nav-link-small" onClick={closeMenu}>
+            Services
           </Link>
         </li>
         <li className="nav-item-small">

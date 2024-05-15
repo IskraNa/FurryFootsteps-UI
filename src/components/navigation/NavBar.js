@@ -75,8 +75,8 @@ const Navbar = ({ user, refreshUser, backgroundColor }) => {
           </Link>
         </li>
         <li className="nav-item">
-          <Link to="/category" className="nav-link" onClick={closeMenu}>
-            Category
+          <Link to="/services" className="nav-link" onClick={closeMenu}>
+            Services
           </Link>
         </li>
         <li className="nav-item">
