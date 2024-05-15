@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./addServiceForm.css";
-import DateTimePicker from "react-datetime-picker";
 import axiosInstance from "../../services/axiosInstance";
+import { MobileDateTimePicker } from "@mui/x-date-pickers";
+import { format, isPast } from "date-fns";
 
 const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
     picture: [],
     userId: userId,
   });
+
+  const [isDateTimeInPast, setIsDateTimeInPast] = useState(false); // State to track if selected date is in the past
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -42,8 +45,17 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
   };
 
   const handleDateTimeChange = (index, field, value) => {
+    const dateObject = value.$d;
+
+    // Check if the selected date is in the past
+    const isInPast = isPast(dateObject);
+    setIsDateTimeInPast(isInPast);
+
+    // Format the date and time
+    const formattedDate = format(dateObject, "dd-MM-yyyy HH:mm:ss");
+
     const updatedAvailabilities = [...formData.availabilities];
-    updatedAvailabilities[index][field] = value;
+    updatedAvailabilities[index][field] = formattedDate;
     setFormData({
       ...formData,
       availabilities: updatedAvailabilities,
@@ -68,12 +80,12 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
 
       setFormData({
         description: "",
-        petSize: "",
+        petSize: formData.petSize,
         price: "",
-        petTypeId: "",
-        activityTypeId: "",
+        petTypeId: formData.petTypeId,
+        activityTypeId: formData.activityTypeId,
         availabilities: [{ dateTimeFrom: "", dateTimeTo: "" }],
-        picture: [],
+        picture: null,
         userId: userId,
       });
     } catch (error) {
@@ -82,147 +94,126 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
   };
 
   return (
-    <div className="add-service-container">
-      <div className="add-service-form">
-        <h2>Add a Service</h2>
-        <form onSubmit={handleSubmit}>
-          <select
-            name="activityTypeId"
-            value={formData.activityTypeId}
-            onChange={handleInputChange}
-            required
-            className="form-input"
-          >
-            {/* <option value="default" disabled hidden style={{ color: "gray" }}>
-              Select Type of Service
-            </option> */}
-            {activityTypes.map((activityType) => (
-              <option key={activityType.id} value={activityType.id}>
-                {activityType.type}
-              </option>
-            ))}
-          </select>
+      <div className="add-service-container">
+        <div className="add-service-form">
+          <h2>Add a Service</h2>
+          <form onSubmit={handleSubmit}>
+            <select
+                name="activityTypeId"
+                value={formData.activityTypeId}
+                onChange={handleInputChange}
+                required
+                className="form-input"
+            >
+              {activityTypes.map((activityType) => (
+                  <option key={activityType.id} value={activityType.id}>
+                    {activityType.type}
+                  </option>
+              ))}
+            </select>
 
-          <input
-            type="number"
-            name="price"
-            placeholder="Price of Service"
-            value={formData.price}
-            onChange={handleInputChange}
-            required
-            className="form-input number-input"
-          />
+            <input
+                type="number"
+                name="price"
+                placeholder="Price of Service"
+                value={formData.price}
+                onChange={handleInputChange}
+                required
+                className="form-input number-input"
+            />
 
-          <select
-            name="petTypeId"
-            value={formData.petTypeId}
-            onChange={handleInputChange}
-            required
-            className="form-input"
-          >
-            {/* <option value="" disabled hidden style={{ color: "gray" }}>
-              Select Type of Pet
-            </option> */}
-            {petTypes.map((petType) => (
-              <option key={petType.id} value={petType.id}>
-                {petType.type}
-              </option>
-            ))}
-          </select>
+            <select
+                name="petTypeId"
+                value={formData.petTypeId}
+                onChange={handleInputChange}
+                required
+                className="form-input"
+            >
+              {petTypes.map((petType) => (
+                  <option key={petType.id} value={petType.id}>
+                    {petType.type}
+                  </option>
+              ))}
+            </select>
 
-          <select
-            name="petSize"
-            value={formData.petSize}
-            onChange={handleInputChange}
-            required
-            className="form-input"
-          >
-            {/* <option value="" disabled hidden style={{ color: "gray" }}>
-              Select Size of Pet
-            </option> */}
-            <option value="SMALL">Small</option>
-            <option value="MEDIUM">Medium</option>
-            <option value="LARGE">Large</option>
-          </select>
-          {/* <input
-            type="text"
-            name="location"
-            placeholder="Location (City)"
-            value={formData.location}
-            onChange={handleInputChange}
-            required
-          /> */}
-          <textarea
-            name="description"
-            placeholder="Description"
-            value={formData.description}
-            onChange={handleInputChange}
-            required
-            style={{
-              width: "100%",
-              padding: "15px",
-              border: "2px solid #6F4E90",
-              borderRadius: "12px",
-            }}
-          />
+            <select
+                name="petSize"
+                value={formData.petSize}
+                onChange={handleInputChange}
+                required
+                className="form-input"
+            >
+              <option value="SMALL">Small</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LARGE">Large</option>
+            </select>
 
-          {/* <div>
-            <label htmlFor="dateTimeFrom" className="choose-picture-label">
-              Date and Time From:
+            <textarea
+                name="description"
+                placeholder="Description"
+                value={formData.description}
+                onChange={handleInputChange}
+                required
+                style={{
+                  width: "100%",
+                  padding: "15px",
+                  border: "2px solid #6F4E90",
+                  borderRadius: "12px",
+                }}
+            />
+            <div>
+              {formData.availabilities.map((availability, index) => (
+                  <div key={index} className="date-time-container">
+                    <div className="date-time-picker">
+                      <label className="choose-picture-label">
+                        Date and Time From:
+                      </label>
+                      <MobileDateTimePicker
+                          onChange={(value) =>
+                              handleDateTimeChange(index, "dateTimeFrom", value)
+                          }
+                      />
+                    </div>
+                    <div className="date-time-picker">
+                      <label className="choose-picture-label">
+                        Date and Time To:
+                      </label>
+                      <MobileDateTimePicker
+                          onChange={(value) =>
+                              handleDateTimeChange(index, "dateTimeTo", value)
+                          }
+                      />
+                    </div>
+                  </div>
+              ))}
+            </div>
+
+            {isDateTimeInPast && (
+                <p className="date-warning">Selected date is in the past!</p>
+            )}
+
+            <button type="button" onClick={handleAddTime}>
+              Add Time
+            </button>
+
+            <label htmlFor="picture" className="choose-picture-label">
+              Choose Photo of Pet
             </label>
-            {formData.availabilities.map((availability, index) => (
-              <div key={index} className="datetime-picker-container">
-                <DateTimePicker
-                  className="datetime-picker"
-                  value={availability.dateTimeFrom}
-                  onChange={(value) =>
-                    handleDateTimeChange(index, "dateTimeFrom", value)
-                  }
-                />
-              </div>
-            ))}
-          </div> */}
+            <input
+                id="picture"
+                type="file"
+                accept="image/*"
+                name="picture"
+                onChange={handleFileChange}
+                className="form-input"
+            />
 
-          {/* <div>
-            <label htmlFor="dateTimeTo" className="choose-picture-label">
-              Date and Time To:
-            </label>
-            {formData.availabilities.map((availability, index) => (
-              <div key={index} className="datetime-picker-container">
-                <DateTimePicker
-                  className="datetime-picker"
-                  value={availability.dateTimeTo}
-                  onChange={(value) =>
-                    handleDateTimeChange(index, "dateTimeTo", value)
-                  }
-                />
-              </div>
-            ))}
-          </div> */}
-
-          <button type="button" onClick={handleAddTime}>
-            Add Time
-          </button>
-
-          <label htmlFor="picture" className="choose-picture-label">
-            Choose Photo of Pet
-          </label>
-          <input
-            id="picture"
-            type="file"
-            accept="image/*"
-            name="picture"
-            onChange={handleFileChange}
-            className="form-input"
-            required
-          />
-
-          <div style={{ marginTop: "50px" }}>
-            <button type="submit">Add Service</button>
-          </div>
-        </form>
+            <div style={{ marginTop: "50px" }}>
+              <button type="submit">Add Service</button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
   );
 };
 
