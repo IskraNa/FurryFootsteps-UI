@@ -85,11 +85,13 @@ function App() {
 
   useEffect(() => {
     const userDataString = localStorage.getItem("userData");
-    const userDataObject = JSON.parse(userDataString);
-    const userId = userDataObject.id;
-    setUserId(userId);
-    refreshUser(userId);
-    refreshUserPosts(userId);
+    if (userDataString) {
+      const userDataObject = JSON.parse(userDataString);
+      const userId = userDataObject.id;
+      setUserId(userId);
+      refreshUser(userId);
+      refreshUserPosts(userId);
+    }
   }, []);
 
   const handleActivityTypeClick = (id) => {
@@ -103,14 +105,24 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<HomePage onClick={handleActivityTypeClick} />}
+          element={
+            <HomePage
+              onClick={handleActivityTypeClick}
+              user={user}
+              refreshUser={refreshUser}
+            />
+          }
           exact
         />
         <Route path="/category" element={<CategoryPage />} exact />
         <Route path="/about" element={<AboutPage />} exact />
         <Route path="/contact" element={<ContactPage />} exact />
         <Route path="/register" element={<RegistrationPage />} exact />
-        <Route path="/login" element={<LoginPage />} exact />
+        <Route
+          path="/login"
+          element={<LoginPage refreshUser={refreshUser} />}
+          exact
+        />
         <Route
           path="/addService"
           element={

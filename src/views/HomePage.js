@@ -7,10 +7,10 @@ import UsefulPetKnowledge from "../components/cardCategories/UsefulPetKnowledge"
 import PetData from "../components/cardCategories/PetData";
 import { Link } from "react-router-dom";
 
-const HomePage = ({ onClick }) => {
+const HomePage = ({ onClick, user, refreshUser }) => {
   return (
     <div>
-      <Header />
+      <Header user={user} refreshUser={refreshUser} />
       <br />
       <br />
       <div className="custom-container">

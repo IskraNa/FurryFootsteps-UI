@@ -6,17 +6,17 @@ import WomanWithDog from "../../assets/womanWithDog.png";
 import RectangleBottom from "../../assets/rectangle-bottom.png";
 import RectangleMiddle from "../../assets/rectangle-middle.png";
 import RectangleNav from "../../assets/rectangle-nav.png";
-import { Link } from "react-router-dom"; // Import Link
+import { Link } from "react-router-dom";
 
-const Header = () => {
-  const [userName, setUserName] = useState("");
+const Header = ({ user, refreshUser }) => {
+  // const [userName, setUserName] = useState("");
 
-  useEffect(() => {
-    const User = JSON.parse(localStorage.getItem("userData"));
-    if (User && User.name) {
-      setUserName(User.name);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const User = JSON.parse(localStorage.getItem("userData"));
+  //   if (User && User.name) {
+  //     setUserName(User.name);
+  //   }
+  // }, []);
 
   return (
     <div>
@@ -24,7 +24,7 @@ const Header = () => {
         <img src={RectangleNav} alt="rectangle-nav" />
       </div>
 
-      <Navbar></Navbar>
+      <Navbar user={user} refreshUser={refreshUser}></Navbar>
       <div></div>
       <div className="header-page">
         <Container>
@@ -40,7 +40,6 @@ const Header = () => {
               </p>
               <Link to="/services">
                 {" "}
-                {/* Use Link component */}
                 <button className="explore-button">Explore Now</button>
               </Link>
               <div className="rectangle-bottom">

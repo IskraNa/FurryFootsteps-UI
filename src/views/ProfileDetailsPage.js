@@ -7,7 +7,7 @@ import "../components/registrationForm/RegisterForm.css";
 const ProfileDetailsPage = ({ user, userPosts }) => {
   return (
     <div>
-      <HeaderSmall />
+      <HeaderSmall user={user} />
       <div className="profile-details-container">
         <ProfileDetailsForm user={user} userPosts={userPosts} />
       </div>

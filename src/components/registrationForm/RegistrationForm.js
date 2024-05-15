@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "./RegisterForm.css";
 import axiosInstance from "../../services/axiosInstance";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,12 +27,13 @@ const RegistrationForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (formData.password !== formData.repeatPassword) {
+      setError("Passwords do not match.");
+      return;
+    }
+
     try {
       const response = await axiosInstance.post("/users/add", formData);
-
-      if (!response.data) {
-        throw new Error("Registration failed");
-      }
 
       setFormData({
         name: "",
@@ -38,7 +43,9 @@ const RegistrationForm = () => {
         password: "",
         repeatPassword: "",
       });
+      navigate("/login");
     } catch (error) {
+      setError("Registration failed. Please try again.");
       console.error("Registration error:", error.message);
     }
   };
@@ -107,7 +114,16 @@ const RegistrationForm = () => {
             required
           />
         </div>
-        <button type="submit">REGISTER</button>
+        {error && <div className="error-message">{error}</div>}
+
+        <button type="submit" className="register-button">
+          REGISTER
+        </button>
+        <div className="login-actions">
+          <Link to={"/login"} className="forgot-password-link">
+            Already registered? Login here.
+          </Link>
+        </div>
       </form>
     </div>
   );

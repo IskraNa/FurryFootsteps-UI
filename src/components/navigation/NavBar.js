@@ -8,12 +8,13 @@ import LogInIcon from "../../assets/login.png";
 import SearchBar from "../SearchBar";
 import axiosInstance from "../../services/axiosInstance";
 
-const Navbar = () => {
+const Navbar = ({ user, refreshUser }) => {
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState("");
+  //const [user, setUser] = useState("");
 
   const handleLogout = async () => {
     localStorage.removeItem("userData");
+    refreshUser();
     window.location.reload();
     try {
       const response = await axiosInstance.post("/users/logout");
@@ -39,12 +40,12 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const User = JSON.parse(localStorage.getItem("userData"));
+    //   const User = JSON.parse(localStorage.getItem("userData"));
 
-    if (User && User.name) {
-      setUser(User);
-    }
-    const handleResize = () => {
+    //   if (User && User.name) {
+    //     setUser(User);
+    //   }
+    let handleResize = () => {
       if (window.innerWidth > 950) {
         setOpen(false);
       }
@@ -95,6 +96,11 @@ const Navbar = () => {
                 <h1> {user && <span>{user.name}</span>}</h1>
               </div>
             </li>
+            <li className="nav-buttons">
+              <Link to="/profile">
+                <img src={LogInIcon} alt="LogIn" />
+              </Link>
+            </li>
             <li className="logout-btn">
               <button onClick={handleLogout}>Logout</button>
             </li>
@@ -103,9 +109,6 @@ const Navbar = () => {
         {!user && (
           <React.Fragment>
             <li className="nav-buttons">
-              <Link to="/register">
-                <img src={SignUpIcon} alt="Signup" onClick={closeMenu} />
-              </Link>
               <Link to="/login">
                 <img src={LogInIcon} alt="LogIn" onClick={closeMenu} />
               </Link>
