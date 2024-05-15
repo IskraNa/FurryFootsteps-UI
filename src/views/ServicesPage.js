@@ -12,10 +12,11 @@ function App({
   activityTypeId,
   refreshPosts,
   handleActivityTypeClick,
+  user,
 }) {
   return (
     <div className="app-container">
-      <HeaderSmall />
+      <HeaderSmall user={user} />
       <div className="content-container">
         <CardServices
           activityTypes={activityTypes}

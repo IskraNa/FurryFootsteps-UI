@@ -146,11 +146,15 @@ function App() {
               activityTypeId={activityTypeId}
               refreshPosts={refreshPosts}
               handleActivityTypeClick={handleActivityTypeClick}
+              user={user}
             />
           }
           exact
         />
-        <Route path="/details/:id" element={<ServiceDetailsPage />} />
+        <Route
+          path="/details/:id"
+          element={<ServiceDetailsPage user={user} />}
+        />
         <Route path="/posts" element={<PostPage />} exact />
         <Route
           path="/profile"

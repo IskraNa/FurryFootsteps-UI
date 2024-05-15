@@ -69,11 +69,11 @@ const HeaderSmall = ({ user }) => {
             </Link>
           )}
           {!user && (
-            <li className="nav-buttons">
+            <div className="nav-buttons">
               <Link to="/login">
                 <img src={LogInIcon} alt="LogIn" onClick={closeMenu} />
               </Link>
-            </li>
+            </div>
           )}
           {/* <Link to="/register"> <img src={SignUpIcon} alt="Signup" onClick={closeMenu} /></Link> */}
         </li>

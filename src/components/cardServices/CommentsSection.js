@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./CommentsSection.css";
+import axiosInstance from "../../services/axiosInstance";
+import { Link } from "react-router-dom";
 
-function CommentsSection({ reviews }) {
+function CommentsSection({ reviews, user }) {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     setComments(reviews);
@@ -13,11 +16,30 @@ function CommentsSection({ reviews }) {
     setNewComment(event.target.value);
   };
 
-  const handlePostComment = () => {
-    // Add logic to post the comment to the backend or update state
+  const handleRatingChange = (event) => {
+    setRating(event.target.value);
+  };
+
+  const handlePostComment = async () => {
     console.log("Posting comment:", newComment);
-    // Clear the textarea after posting the comment
-    setNewComment("");
+    console.log("Rating:", rating);
+    console.log("User", user.id);
+
+    try {
+      const formData = new FormData();
+      formData.append("comment", newComment);
+      formData.append("rating", rating);
+      formData.append("postId", user.id);
+
+      //const result = await axiosInstance.post("/reviews/add", formData);
+      //console.log("Comment posted successfully:", result.data);
+      console.log(formData);
+
+      setNewComment("");
+      setRating(0);
+    } catch (error) {
+      console.error("Error posting comment:", error.message);
+    }
   };
 
   if (!comments || comments.length === 0) {
@@ -60,16 +82,39 @@ function CommentsSection({ reviews }) {
           <p className="comment-text">{review.comment}</p>
         </div>
       ))}
-      <textarea
-        placeholder="Write your comment here..."
-        value={newComment}
-        onChange={handleCommentChange}
-        className="comment-textarea"
-      />
-      <button onClick={handlePostComment} className="post-comment-button">
-        Post Comment
-      </button>
-      <br />
+      {user && (
+        <div>
+          <textarea
+            placeholder="Write your comment here..."
+            value={newComment}
+            onChange={handleCommentChange}
+            className="comment-textarea"
+          />
+          <div className="rating-input">
+            <label htmlFor="rating">Rate this post (0-5): </label>
+            <input
+              type="number"
+              id="rating"
+              name="rating"
+              min="0"
+              max="5"
+              value={rating}
+              onChange={handleRatingChange}
+            />
+          </div>
+          <button onClick={handlePostComment} className="post-comment-button">
+            Post Comment
+          </button>
+          <br />
+        </div>
+      )}
+      {!user && (
+        <di>
+          Want to post a comment?
+          <Link to="/login">Login first.</Link>
+          <br />
+        </di>
+      )}
     </div>
   );
 }
