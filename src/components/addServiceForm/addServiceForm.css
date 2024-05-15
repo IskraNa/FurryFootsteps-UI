@@ -76,17 +76,17 @@
   color: #6f4e90;
 }
 
-.datetime-picker-container {
+.date-time-container {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
+  gap: 110px;
+  border: none;
 }
 
-.datetime-picker {
-  width: 45%;
-  max-width: 250px;
+.date-time-picker {
+  flex: 1;
+  position: relative;
+  border: none;
 }
-
 .number-input {
   -moz-appearance: textfield;
 }
