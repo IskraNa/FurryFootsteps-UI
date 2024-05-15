@@ -4,7 +4,7 @@ import "./ServiceDetails.css";
 import CommentsSection from "./CommentsSection";
 import getPostById from "../../services/postsService/getPostById";
 
-function ServiceDetailsPage() {
+function ServiceDetailsPage({ user }) {
   const { id } = useParams();
   const [service, setService] = useState(null);
   const [selectedAvailability, setSelectedAvailability] = useState(null);
@@ -13,8 +13,6 @@ function ServiceDetailsPage() {
     try {
       const response = await getPostById(id);
       setService(response);
-
-      console.log("Service fetched:", response);
     } catch (error) {
       console.error("Error fetching service:", error);
     }
@@ -85,9 +83,7 @@ function ServiceDetailsPage() {
               src={require(`../../assets/dog_walking.png`)}
               alt={service.serviceName}
             />
-            {/* <div className="star-rating">
-              {renderStars(service.rating)}{" "}
-            </div> */}
+            {/* <div className="star-rating">{renderStars(service.rating)} </div> */}
           </div>
           <div className="service-details-info">
             <div className="service-name">{service.serviceName}</div>
@@ -152,7 +148,7 @@ function ServiceDetailsPage() {
           </div>
         </div>
       </div>
-      <CommentsSection reviews={service.reviews} />{" "}
+      <CommentsSection reviews={service.reviews} user={user} />{" "}
     </div>
   );
 }

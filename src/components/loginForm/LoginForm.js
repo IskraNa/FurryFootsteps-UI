@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./LoginForm.css";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../services/axiosInstance";
+import { Link } from "react-router-dom";
 
-const LoginForm = () => {
+const LoginForm = ({ refreshUser }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,18 +25,17 @@ const LoginForm = () => {
     try {
       const response = await axiosInstance.post("/users/login", formData);
 
-      if (!response.data) {
-        throw new Error("Login failed");
-      }
-
       localStorage.setItem("userData", JSON.stringify(response.data));
       setFormData({
         email: "",
         password: "",
       });
       // const User = JSON.parse(localStorage.getItem('userData'))
+      refreshUser();
       navigate("/");
+      window.location.reload();
     } catch (error) {
+      setError("Login failed. Invalid credentials.");
       console.error("Login error:", error.message);
     }
   };
@@ -49,20 +49,20 @@ const LoginForm = () => {
             <input
               type="email"
               name="email"
-              placeholder="email"
               value={formData.email}
-              onChange={handleInputChange}
+              placeholder="Username"
               required
+              onChange={handleInputChange}
             />
           </div>
           <div className="input-group">
             <input
               type="password"
               name="password"
-              placeholder="Password"
               value={formData.password}
-              onChange={handleInputChange}
+              placeholder="Password"
               required
+              onChange={handleInputChange}
             />
           </div>
           {error && <div className="error-message">{error}</div>}
@@ -70,9 +70,17 @@ const LoginForm = () => {
             <button type="submit" className="login-button">
               LOGIN
             </button>
-            <a href="#" className="forgot-password-link">
-              Forgot Password?
-            </a>
+            <Link to={"/register"} className="forgot-password-link">
+              New to Furry Footsteps? Register here.
+            </Link>
+          </div>
+          <div className="divider-container">
+            <div className="line"></div>
+            <div className="or-text">OR</div>
+            <div className="line"></div>
+          </div>
+          <div className="social-login">
+            <button type="button" className="social-button google" />
           </div>
         </form>
       </div>

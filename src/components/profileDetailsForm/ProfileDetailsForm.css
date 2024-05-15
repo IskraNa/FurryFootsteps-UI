@@ -54,6 +54,16 @@
   border: none;
   font-weight: bold;
   border-radius: 5px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.button.edit,
+.button.edit-information,
+.button.logout {
+  width: fit-content;
+  margin: auto;
 }
 
 .button.edit {
@@ -63,7 +73,14 @@
 
 .button.edit-information {
   background-color: #a8e1a0;
-  width: 100%;
+  width: 20%;
+}
+
+.button.logout {
+  margin-top: 10px;
+  background-color: #f44336;
+  color: #fff;
+  width: 25%;
 }
 
 .button.delete {
@@ -96,8 +113,8 @@
 }
 
 .user-image {
-  width: 60px; /* Adjust as needed */
-  height: 60px; /* Adjust as needed */
-  border-radius: 50%; /* Makes the image round */
-  object-fit: cover; /* Preserve aspect ratio and cover the entire space */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
 }

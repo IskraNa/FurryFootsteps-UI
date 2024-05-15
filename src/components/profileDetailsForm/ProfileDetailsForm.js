@@ -1,11 +1,32 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./ProfileDetailsForm.css";
+import axiosInstance from "../../services/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 const ProfileDetailsForm = ({ user, userPosts }) => {
+  const navigate = useNavigate();
+
   if (!user) {
-    return <div>Loading...</div>;
+    return (
+      <div>
+        You don't have a profile yet. Register <Link to="/register">here.</Link>
+      </div>
+    );
   }
+
+  const handleLogout = async () => {
+    localStorage.removeItem("userData");
+    try {
+      const response = await axiosInstance.post("/users/logout");
+      console.log("Logout successful");
+
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout error:", error.message);
+    }
+  };
 
   return (
     <div className="profile-details-container">
@@ -32,7 +53,10 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
           <p>
             <strong>Location:</strong> {user.location}
           </p>
-          <button className="button edit-information">Edit Information</button>
+          <Link className="button edit-information">Edit Information</Link>
+          <button className="button logout" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
         <div className="services-details">
           <h2>Your Posts</h2>
