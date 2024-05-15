@@ -8,7 +8,7 @@ import LogInIcon from "../../assets/login.png";
 import SearchBar from "../SearchBar";
 import axiosInstance from "../../services/axiosInstance";
 
-const Navbar = ({ user, refreshUser }) => {
+const Navbar = ({ user, refreshUser, backgroundColor }) => {
   const [open, setOpen] = useState(false);
   //const [user, setUser] = useState("");
 
@@ -61,7 +61,7 @@ const Navbar = ({ user, refreshUser }) => {
   }, []);
 
   return (
-    <nav className="navbar">
+    <nav className="navbar" style={{ backgroundColor: backgroundColor }}>
       <Link to="/" className="nav-logo">
         <img src={Logo} alt="Logo" />
       </Link>
