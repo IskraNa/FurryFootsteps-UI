@@ -16,6 +16,7 @@ import ProfileDetailsPage from "./views/ProfileDetailsPage";
 import getAllActivityTypes from "../src/services/activityType/getAllActivityTypes.js";
 import getAllPetTypes from "./services/petType/getAllPetTypes.js";
 import getAllPosts from "./services/postsService/getAllPosts.js";
+import EditProfilePage from "./views/EditProfilePage";
 import getUserProfile from "./services/userService/getUserProfile.js";
 import getUserPosts from "./services/userService/getUserPosts.js";
 
@@ -142,10 +143,9 @@ function App() {
         <Route path="/posts" element={<PostPage />} exact />
         <Route
           path="/profile"
-          element={<ProfileDetailsPage user={user} userPosts={userPosts} />}
-          exact
-        />
-      </Routes>
+          element={<ProfileDetailsPage user={user} userPosts={userPosts} />} exact />
+                <Route path="/edit" element={<EditProfilePage />} exact />
+            </Routes>
       <Footer />
     </Router>
   );
