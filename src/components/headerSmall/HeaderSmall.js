@@ -5,9 +5,29 @@ import "./HeaderSmall.css";
 import Logo from "../../assets/logo.png";
 import LogInIcon from "../../assets/login.png";
 import SearchBar from "../SearchBar";
+import axiosInstance from "../../services/axiosInstance";
 
 const HeaderSmall = ({ user }) => {
   const [open, setOpen] = useState(false);
+
+  const handleLogout = async () => {
+    localStorage.removeItem("userData");
+    //refreshUser();
+    window.location.reload();
+    try {
+      const response = await axiosInstance.post("/users/logout");
+
+      if (!response.data) {
+        throw new Error("Logout failed");
+      }
+
+      console.log("Logout successful");
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Logout error:", error.message);
+    }
+  };
 
   const handleClick = () => {
     setOpen(!open);
@@ -62,12 +82,31 @@ const HeaderSmall = ({ user }) => {
             Contact
           </Link>
         </li>
-        <li className="nav-buttons-small">
+        {user && (
+          <React.Fragment>
+            <li className="nav-item">
+              <div className="userName">
+                <h1> {user && <span>{user.name}</span>}</h1>
+              </div>
+            </li>
+            <li className="nav-buttons">
+              <Link to="/profile">
+                <img src={LogInIcon} alt="LogIn" />
+              </Link>
+            </li>
+            <li className="logout-btn">
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          </React.Fragment>
+        )}
+        {/* <li className="nav-buttons-small">
           {user && (
             <Link to="/profile">
               <img src={LogInIcon} alt="LogIn" />
             </Link>
           )}
+        </li> */}
+        <li className="nav-buttons-small">
           {!user && (
             <div className="nav-buttons">
               <Link to="/login">
@@ -75,7 +114,6 @@ const HeaderSmall = ({ user }) => {
               </Link>
             </div>
           )}
-          {/* <Link to="/register"> <img src={SignUpIcon} alt="Signup" onClick={closeMenu} /></Link> */}
         </li>
         {!open ? (
           <li className="nav-search-small">

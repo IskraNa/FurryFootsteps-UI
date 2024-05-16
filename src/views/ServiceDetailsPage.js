@@ -5,7 +5,7 @@ import ServiceDetails from "../components/cardServices/ServiceDetails";
 function App({ user }) {
   return (
     <div className="app-container">
-      <HeaderSmall />
+      <HeaderSmall user={user} />
       <div className="content-container">
         <ServiceDetails user={user} />
       </div>

@@ -96,3 +96,8 @@
   -webkit-appearance: none;
   margin: 0;
 }
+
+.error-message {
+  color: red;
+  margin-top: 30px;
+}
