@@ -114,8 +114,12 @@ function App() {
           }
           exact
         />
-        <Route path="/about" element={<AboutPage />} exact />
-        <Route path="/contact" element={<ContactPage />} exact />
+        <Route path="/about" element={<AboutPage user={user} />} exact />
+        <Route
+          path="/contact"
+          element={<ContactPage user={user} refreshUser={refreshUser} />}
+          exact
+        />
         <Route path="/register" element={<RegistrationPage />} exact />
         <Route
           path="/login"
@@ -156,7 +160,7 @@ function App() {
           path="/details/:id"
           element={<ServiceDetailsPage user={user} />}
         />
-        <Route path="/posts" element={<PostPage />} exact />
+        <Route path="/posts" element={<PostPage user={user} />} exact />
         <Route
           path="/profile"
           element={<ProfileDetailsPage user={user} userPosts={userPosts} />}

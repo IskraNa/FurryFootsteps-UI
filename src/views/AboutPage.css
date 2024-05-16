@@ -1,51 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&display=swap");
 .about-page {
-    position: relative;
-    width: 100%;
-    /*padding-top: 100px;*/
-    /*height: 100vh;*/
-    height: 80vh;
-    background: linear-gradient(0deg, #8BC686, #8BC686);
-    color: #FFFFFF;
-    font-family: 'Fira Sans', sans-serif;
-    border-radius: 0 0 5vw 5vw;
+  position: relative;
+  width: 100%;
+  /*padding-top: 100px;*/
+  /*height: 100vh;*/
+  height: 80vh;
+  background: linear-gradient(0deg, #8bc686, #8bc686);
+  color: #ffffff;
+  font-family: "Fira Sans", sans-serif;
+  border-radius: 0 0 5vw 5vw;
 }
 .about-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    max-width: 1200px;
-    height: calc(100vh - 100px);
-    margin: auto;
-    padding-bottom: 50px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 1200px;
+  height: calc(100vh - 100px);
+  margin: auto;
+  padding-bottom: 50px;
 }
-.navbar-small{
-    background-color: #8BC686;
+.navbar-small {
+  background-color: #8bc686;
 }
 .title {
-    font-family: 'Fira Sans', sans-serif;
-    font-weight: 100;
-    text-align: center;
-    top: 100px;
-
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 100;
+  text-align: center;
+  top: 100px;
 }
 .description {
-    font-family: 'Fira Sans', sans-serif;
-    font-weight: 400;
-    text-align: left;
-    top: 200px;
+  font-family: "Fira Sans", sans-serif;
+  font-weight: 400;
+  text-align: left;
+  top: 200px;
 }
 .woman-hugging-dog {
-    position: absolute;
-    left: 500px; /* Adjust this value as needed */
-    bottom: -45px; /* Adjust this value as needed */
-    width: 300px;
-    z-index: 10;
-    transform: scale(0.85);
+  position: absolute;
+  left: 500px; /* Adjust this value as needed */
+  bottom: -45px; /* Adjust this value as needed */
+  width: 300px;
+  z-index: 10;
+  transform: scale(0.85);
 }
-
 
 .rectangle-1,
 .rectangle-2,
@@ -54,51 +52,50 @@
 .rectangle-5,
 .rectangle-6,
 .rectangle-7 {
-    position: absolute;
-    bottom: 50px;
+  position: absolute;
+  bottom: 50px;
 }
 
 .rectangle-1 {
-    transform: scale(0.9);
-    right: 100px;
-    bottom: 50px;
+  transform: scale(0.9);
+  right: 100px;
+  bottom: 50px;
 }
 
 .rectangle-2 {
-    bottom: 50px;
-    transform: scale(0.9);
-    right: 0px;
+  bottom: 50px;
+  transform: scale(0.9);
+  right: 0px;
 }
 .rectangle-3 {
-    transform: scale(0.85);
-    position: absolute;
-    bottom: -10px;
-    left: 50px;
+  transform: scale(0.85);
+  position: absolute;
+  bottom: -10px;
+  left: 50px;
 }
 
 .rectangle-4 {
-    transform: scale(0.85);
-    position: absolute;
-    z-index: 5;
-    top: -45px;
-    left: -28px;
+  transform: scale(0.85);
+  position: absolute;
+  z-index: 5;
+  top: -45px;
+  left: -28px;
 }
 
 .rectangle-5 {
-    top: 100px ;
-    right: 750px;
+  top: 100px;
+  right: 750px;
 }
 .rectangle-6 {
-    top: 200px;
-    right: 850px;
+  top: 200px;
+  right: 850px;
 }
 .rectangle-7 {
-    top: 230px ;
-    right: 950px;
+  top: 230px;
+  right: 950px;
 }
 @media screen and (max-width: 768px) {
-    .about-container {
-        height: auto;
-    }
+  .about-container {
+    height: auto;
+  }
 }
-
