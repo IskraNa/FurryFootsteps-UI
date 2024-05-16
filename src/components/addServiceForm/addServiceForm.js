@@ -4,7 +4,6 @@ import "./addServiceForm.css";
 import axiosInstance from "../../services/axiosInstance";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import { format, isPast } from "date-fns";
-import { useNavigate } from "react-router-dom";
 
 const AddServiceForm = ({
   activityTypes,
