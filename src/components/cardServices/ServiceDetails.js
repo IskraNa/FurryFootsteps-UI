@@ -5,7 +5,7 @@ import CommentsSection from "./CommentsSection";
 import getPostById from "../../services/postsService/getPostById";
 
 function ServiceDetailsPage({ user }) {
-  const { id } = useParams();
+  const { id: postId } = useParams();
   const [service, setService] = useState(null);
   const [selectedAvailability, setSelectedAvailability] = useState(null);
 
@@ -19,8 +19,8 @@ function ServiceDetailsPage({ user }) {
   };
 
   useEffect(() => {
-    refreshService(id);
-  }, [id]);
+    refreshService(postId);
+  }, [postId]);
 
   if (!service) {
     return <div>Loading...</div>;
@@ -148,7 +148,12 @@ function ServiceDetailsPage({ user }) {
           </div>
         </div>
       </div>
-      <CommentsSection reviews={service.reviews} user={user} />{" "}
+      <CommentsSection
+        reviews={service.reviews}
+        user={user}
+        postId={postId}
+        refreshService={refreshService}
+      />{" "}
     </div>
   );
 }
