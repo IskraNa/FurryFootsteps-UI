@@ -9,6 +9,7 @@ const RegistrationForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
+    surname: "",
     email: "",
     phone: "",
     location: "",
@@ -37,6 +38,7 @@ const RegistrationForm = () => {
 
       setFormData({
         name: "",
+        surname: "",
         email: "",
         phone: "",
         location: "",
@@ -58,8 +60,18 @@ const RegistrationForm = () => {
           <input
             type="text"
             name="name"
-            placeholder="Full Name"
+            placeholder="Name"
             value={formData.name}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="surname"
+            placeholder="Surname"
+            value={formData.surname}
             onChange={handleInputChange}
             required
           />
