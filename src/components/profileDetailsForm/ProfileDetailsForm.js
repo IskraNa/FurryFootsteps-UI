@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import "./ProfileDetailsForm.css";
 import axiosInstance from "../../services/axiosInstance";
@@ -6,6 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileDetailsForm = ({ user, userPosts }) => {
   const navigate = useNavigate();
+  const [posts, setPosts] = useState(userPosts);
+
+  useEffect(() => {
+    setPosts(userPosts);
+  }, [userPosts]);
+
 
   if (!user) {
     return (
@@ -26,6 +32,21 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
     } catch (error) {
       console.error("Logout error:", error.message);
     }
+  };
+
+  const handleDelete = async (postId) => {
+    try {
+      await axiosInstance.delete(`/posts/${postId}`);
+      setPosts(posts.filter((post) => post.id !== postId));
+      window.location.reload();
+      console.log("Post deleted successfully");
+    } catch (error) {
+      console.error("Delete error:", error.message);
+    }
+  };
+
+  const handleEdit = (post) => {
+    navigate("/addService", { state: { post } });
   };
 
   return (
@@ -77,8 +98,8 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
 
                   <h4>{service.activityTypeName}</h4>
                   <p>{service.description}</p>
-                  <button className="button edit">Edit</button>
-                  <button className="button delete"></button>
+                  <button className="button edit" onClick={() => handleEdit(service)}>Edit</button>
+                  <button className="button delete" onClick={() => handleDelete(service.id)}></button>
                 </div>
               ))
             )}

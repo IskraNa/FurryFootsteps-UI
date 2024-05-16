@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./addServiceForm.css";
 import axiosInstance from "../../services/axiosInstance";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
@@ -13,6 +14,8 @@ const AddServiceForm = ({
 }) => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const location = useLocation();
+  const postToEdit = location.state?.post;
 
   const [formData, setFormData] = useState({
     description: "",
@@ -24,6 +27,25 @@ const AddServiceForm = ({
     picture: [],
     userId: userId,
   });
+
+  const [isDateTimeInPast, setIsDateTimeInPast] = useState(false);
+
+  useEffect(() => {
+    if (postToEdit) {
+      setFormData({
+        ...postToEdit,
+        availabilities: postToEdit.availabilities
+            ? postToEdit.availabilities.map((availability) => ({
+              ...availability,
+              dateTimeFrom: new Date(availability.dateTimeFrom),
+              dateTimeTo: new Date(availability.dateTimeTo),
+            }))
+            : [],
+        picture: postToEdit.picture || [],
+        userId: userId,
+      });
+    }
+  }, [postToEdit, userId]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -56,8 +78,8 @@ const AddServiceForm = ({
       setError("Selected date is in the past!");
     }
 
+    setIsDateTimeInPast(isInPast);
     const formattedDate = format(dateObject, "dd-MM-yyyy HH:mm:ss");
-
     const updatedAvailabilities = [...formData.availabilities];
     updatedAvailabilities[index][field] = formattedDate;
     setFormData({
@@ -79,31 +101,27 @@ const AddServiceForm = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axiosInstance.post("/posts/add", formData);
-      console.log("Response from server:", response.data);
-
-      setFormData({
-        description: "",
-        petSize: formData.petSize,
-        price: "",
-        petTypeId: formData.petTypeId,
-        activityTypeId: formData.activityTypeId,
-        availabilities: [{ dateTimeFrom: "", dateTimeTo: "" }],
-        picture: null,
-        userId: userId,
-      });
+      if (postToEdit) {
+        await axiosInstance.put(`/posts/${postToEdit.id}`, formData);
+        console.log("Post updated successfully");
+      } else {
+        await axiosInstance.post("/posts/add", formData);
+        console.log("Service added successfully");
+      }
+      navigate("/profile");
+      window.location.reload();
       navigate("/profile");
       refreshUserPosts(userId);
     } catch (error) {
       setError("Failed to add service. Please try again.");
-      console.error("Error occurred while sending data to server:", error);
+      console.error("Error occurred:", error);
     }
   };
 
   return (
     <div className="add-service-container">
       <div className="add-service-form">
-        <h2>Add a Service</h2>
+        <h2>{postToEdit ? "Edit Service" : "Add a Service"}</h2>
         <form onSubmit={handleSubmit}>
           <select
             name="activityTypeId"
@@ -223,7 +241,7 @@ const AddServiceForm = ({
           {error && <p className="error-message">{error}</p>}
 
           <div style={{ marginTop: "50px" }}>
-            <button type="submit">Add Service</button>
+            <button type="submit">{postToEdit ? "Update Service" : "Add Service"}</button>
           </div>
         </form>
       </div>
