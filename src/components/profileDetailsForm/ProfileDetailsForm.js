@@ -45,6 +45,10 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
     }
   };
 
+  const handleEdit = (post) => {
+    navigate("/addService", { state: { post } });
+  };
+
   return (
     <div className="profile-details-container">
       <div className="profile-header">
@@ -94,7 +98,7 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
 
                   <h4>{service.activityTypeName}</h4>
                   <p>{service.description}</p>
-                  <button className="button edit">Edit</button>
+                  <button className="button edit" onClick={() => handleEdit(service)}>Edit</button>
                   <button className="button delete" onClick={() => handleDelete(service.id)}></button>
                 </div>
               ))

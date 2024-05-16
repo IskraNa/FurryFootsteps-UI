@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./addServiceForm.css";
 import axiosInstance from "../../services/axiosInstance";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import { format, isPast } from "date-fns";
 
 const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const postToEdit = location.state?.post;
+
   const [formData, setFormData] = useState({
     description: "",
     petSize: "",
@@ -16,7 +21,24 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
     userId: userId,
   });
 
-  const [isDateTimeInPast, setIsDateTimeInPast] = useState(false); // State to track if selected date is in the past
+  const [isDateTimeInPast, setIsDateTimeInPast] = useState(false);
+
+  useEffect(() => {
+    if (postToEdit) {
+      setFormData({
+        ...postToEdit,
+        availabilities: postToEdit.availabilities
+            ? postToEdit.availabilities.map((availability) => ({
+              ...availability,
+              dateTimeFrom: new Date(availability.dateTimeFrom),
+              dateTimeTo: new Date(availability.dateTimeTo),
+            }))
+            : [],
+        picture: postToEdit.picture || [],
+        userId: userId,
+      });
+    }
+  }, [postToEdit, userId]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -28,14 +50,10 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-
-    // Read the file as a Blob
     const reader = new FileReader();
     reader.onloadend = () => {
-      // Convert the Blob to a Uint8Array
       const arrayBuffer = reader.result;
       const uint8Array = new Uint8Array(arrayBuffer);
-      // Set the Uint8Array as the picture data in the formData
       setFormData({
         ...formData,
         picture: Array.from(uint8Array),
@@ -46,14 +64,9 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
 
   const handleDateTimeChange = (index, field, value) => {
     const dateObject = value.$d;
-
-    // Check if the selected date is in the past
     const isInPast = isPast(dateObject);
     setIsDateTimeInPast(isInPast);
-
-    // Format the date and time
     const formattedDate = format(dateObject, "dd-MM-yyyy HH:mm:ss");
-
     const updatedAvailabilities = [...formData.availabilities];
     updatedAvailabilities[index][field] = formattedDate;
     setFormData({
@@ -75,28 +88,24 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axiosInstance.post("/posts/add", formData);
-      console.log("Response from server:", response.data);
-
-      setFormData({
-        description: "",
-        petSize: formData.petSize,
-        price: "",
-        petTypeId: formData.petTypeId,
-        activityTypeId: formData.activityTypeId,
-        availabilities: [{ dateTimeFrom: "", dateTimeTo: "" }],
-        picture: null,
-        userId: userId,
-      });
+      if (postToEdit) {
+        await axiosInstance.put(`/posts/${postToEdit.id}`, formData);
+        console.log("Post updated successfully");
+      } else {
+        await axiosInstance.post("/posts/add", formData);
+        console.log("Service added successfully");
+      }
+      navigate("/profile");
+      window.location.reload();
     } catch (error) {
-      console.error("Error occurred while sending data to server:", error);
+      console.error("Error occurred:", error);
     }
   };
 
   return (
       <div className="add-service-container">
         <div className="add-service-form">
-          <h2>Add a Service</h2>
+          <h2>{postToEdit ? "Edit Service" : "Add a Service"}</h2>
           <form onSubmit={handleSubmit}>
             <select
                 name="activityTypeId"
@@ -111,7 +120,6 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
                   </option>
               ))}
             </select>
-
             <input
                 type="number"
                 name="price"
@@ -121,7 +129,6 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
                 required
                 className="form-input number-input"
             />
-
             <select
                 name="petTypeId"
                 value={formData.petTypeId}
@@ -135,7 +142,6 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
                   </option>
               ))}
             </select>
-
             <select
                 name="petSize"
                 value={formData.petSize}
@@ -147,7 +153,6 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
               <option value="MEDIUM">Medium</option>
               <option value="LARGE">Large</option>
             </select>
-
             <textarea
                 name="description"
                 placeholder="Description"
@@ -187,15 +192,12 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
                   </div>
               ))}
             </div>
-
             {isDateTimeInPast && (
                 <p className="date-warning">Selected date is in the past!</p>
             )}
-
             <button type="button" onClick={handleAddTime}>
               Add Time
             </button>
-
             <label htmlFor="picture" className="choose-picture-label">
               Choose Photo of Pet
             </label>
@@ -207,9 +209,8 @@ const AddServiceForm = ({ activityTypes, petTypes, userId }) => {
                 onChange={handleFileChange}
                 className="form-input"
             />
-
             <div style={{ marginTop: "50px" }}>
-              <button type="submit">Add Service</button>
+              <button type="submit">{postToEdit ? "Update Service" : "Add Service"}</button>
             </div>
           </form>
         </div>
