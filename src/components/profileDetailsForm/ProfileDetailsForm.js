@@ -68,7 +68,7 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
                 <div key={service.id} className="service-item">
                   <Link to={`/details/${service.id}`}>
                     <img
-                      //   src={service.picture}
+                      //src={service.picture}
                       src={require("../../assets/post1.jpg")}
                       alt={service.activityTypeName}
                       className="service-image"

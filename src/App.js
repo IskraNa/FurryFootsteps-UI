@@ -129,6 +129,8 @@ function App() {
               activityTypes={activityTypes}
               petTypes={petTypes}
               userId={userId}
+              user={user}
+              refreshUserPosts={refreshUserPosts}
             />
           }
           exact
@@ -157,9 +159,11 @@ function App() {
         <Route path="/posts" element={<PostPage />} exact />
         <Route
           path="/profile"
-          element={<ProfileDetailsPage user={user} userPosts={userPosts} />} exact />
-                <Route path="/edit" element={<EditProfilePage />} exact />
-            </Routes>
+          element={<ProfileDetailsPage user={user} userPosts={userPosts} />}
+          exact
+        />
+        <Route path="/edit" element={<EditProfilePage />} exact />
+      </Routes>
       <Footer />
     </Router>
   );
