@@ -21,17 +21,26 @@ const LoginForm = ({ refreshUser }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-
+  
     try {
       const response = await axiosInstance.post("/users/login", formData);
-
-      localStorage.setItem("userData", JSON.stringify(response.data));
+  
+      // Extract userId from response data
+      const { userId } = response.data;
+  
+      // Store user data including userId in local storage
+      localStorage.setItem("userData", JSON.stringify({ ...response.data, userId }));
+  
       setFormData({
         email: "",
         password: "",
       });
-      // const User = JSON.parse(localStorage.getItem('userData'))
+      setError("");
+  
+      // Refresh user data in the parent component
       refreshUser();
+  
+      // Redirect to home page
       navigate("/");
       window.location.reload();
     } catch (error) {
@@ -39,6 +48,7 @@ const LoginForm = ({ refreshUser }) => {
       console.error("Login error:", error.message);
     }
   };
+  
 
   return (
     <div className="login-form-container">

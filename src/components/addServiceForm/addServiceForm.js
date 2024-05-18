@@ -57,6 +57,9 @@ const AddServiceForm = ({
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
+    console.log("File object: ",file);
+
+    if(file){
     const reader = new FileReader();
     reader.onloadend = () => {
       const arrayBuffer = reader.result;
@@ -66,7 +69,11 @@ const AddServiceForm = ({
         picture: Array.from(uint8Array),
       });
     };
+  
     reader.readAsArrayBuffer(file);
+  } else {
+    console.error("No file select or object is undefined");
+  }
   };
 
   const handleDateTimeChange = (index, field, value) => {

@@ -3,11 +3,29 @@ import { useParams } from "react-router-dom";
 import "./ServiceDetails.css";
 import CommentsSection from "./CommentsSection";
 import getPostById from "../../services/postsService/getPostById";
+import axiosInstance from "../../services/axiosInstance";
+import axios from 'axios';
 
 function ServiceDetailsPage({ user }) {
   const { id: postId } = useParams();
   const [service, setService] = useState(null);
   const [selectedAvailability, setSelectedAvailability] = useState(null);
+  const [requestId, setRequestId] = useState(null);
+  const [userId,setUserId] = useState(null);
+
+
+  useEffect(() => {
+    // Retrieve userId from local storage
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    console.log("User Data:", userData); 
+  
+    if (userData) {
+      const { id } = userData;
+      console.log("User ID:", id); 
+      setUserId(id);
+    }
+  }, []); 
+  
 
   const refreshService = async (id) => {
     try {
@@ -19,6 +37,21 @@ function ServiceDetailsPage({ user }) {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getPostById(postId);
+        setService(response);
+      } catch (error) {
+        console.error("Error fetching service:", error);
+      }
+    };
+
+    if (postId) {
+      fetchData();
+    }
+  }, [postId]);
+
+  useEffect(() => {
     refreshService(postId);
   }, [postId]);
 
@@ -26,14 +59,41 @@ function ServiceDetailsPage({ user }) {
     return <div>Loading...</div>;
   }
 
-  const handleApply = () => {
+  const handleApply = async () => {
     if (selectedAvailability) {
-      // TODO: logika za rezervacija
-      console.log("Selected availability:", selectedAvailability);
+      try {
+        const requestData = {
+          status: 'PENDING' 
+        };
+  
+        console.log('Request Data:', requestData);
+  
+        const response = await axios.post('http://localhost:8080/api/requests/create', requestData, {
+          params: {
+            postId: postId,
+            userId: userId
+          }
+        });
+  
+        setRequestId(response.data.id);
+        console.log('Created request.', response.data.id); // Use response.data.id
+        alert('Request successfully created!');
+      } catch (error) {
+        console.error('Error creating request:', error.message);
+        alert('Error creating request. Please try again later.');
+      }
     } else {
-      alert("Please select an availability");
+      alert('Please select an availability');
     }
   };
+  
+
+  
+  
+
+
+
+  
 
   const excludedProperties = [
     "id",
