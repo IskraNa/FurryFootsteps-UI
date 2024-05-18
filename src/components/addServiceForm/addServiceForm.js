@@ -15,7 +15,9 @@ const AddServiceForm = ({
   const [error, setError] = useState("");
   const location = useLocation();
   const postToEdit = location.state?.post;
-
+  const temp_user_data=localStorage.getItem("userData");
+  const userData = JSON.parse(temp_user_data)
+  userId = userData.id;
   const [formData, setFormData] = useState({
     description: "",
     petSize: "",
@@ -47,11 +49,13 @@ const AddServiceForm = ({
   }, [postToEdit, userId]);
 
   const handleInputChange = (event) => {
+    
     const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
     });
+
   };
 
   const handleFileChange = (event) => {
@@ -78,7 +82,6 @@ const AddServiceForm = ({
 
   const handleDateTimeChange = (index, field, value) => {
     const dateObject = value.$d;
-
     const isInPast = isPast(dateObject);
     if (isInPast) {
       setError("Selected date is in the past!");
@@ -107,6 +110,7 @@ const AddServiceForm = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      console.log(formData)
       if (postToEdit) {
         await axiosInstance.put(`/posts/${postToEdit.id}`, formData);
         console.log("Post updated successfully");

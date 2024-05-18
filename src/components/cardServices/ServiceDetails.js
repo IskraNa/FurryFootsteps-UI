@@ -17,11 +17,11 @@ function ServiceDetailsPage({ user }) {
   useEffect(() => {
     // Retrieve userId from local storage
     const userData = JSON.parse(localStorage.getItem("userData"));
-    console.log("User Data:", userData); 
+    // console.log("User Data:", userData); 
   
     if (userData) {
       const { id } = userData;
-      console.log("User ID:", id); 
+      // console.log("User ID:", id); 
       setUserId(id);
     }
   }, []); 

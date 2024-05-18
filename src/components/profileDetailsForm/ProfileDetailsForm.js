@@ -18,7 +18,7 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
     const fetchPostRequests = async (userId) => {
       try {
         const response = await fetch(
-          `http://localhost:8080/api/requests/user/${userId}`
+          `http://localhost:8080/api/users/getRequestsById/${userId}`
         );
         if (response.ok) {
           const data = await response.json();
@@ -154,7 +154,7 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
                     src={require("../../assets/post1.jpg")}
                     alt={
                       service.activityType
-                        ? service.activityType.type
+                        ? service.activityType
                         : "N/A"
                     }
                     className="service-image"
@@ -162,7 +162,7 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
                 </Link>
                 <h4>
                   {service.activityType
-                    ? service.activityType.type
+                    ? service.activityType
                     : "N/A"}
                 </h4>
                 <p>{service.description}</p>
@@ -198,6 +198,7 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
                   User: {`${request.user.name}`}
                 </span>
                 <span> Post Description: {request.post?.description}</span>
+                <span> Post: {request.post?.id}</span>
                 <button
                   className="button accept"
                   onClick={() => handleAccept(request.id)}
