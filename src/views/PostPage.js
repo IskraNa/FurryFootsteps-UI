@@ -14,7 +14,16 @@ const PostPage = ({ user }) => {
       <div className="post-page-container">
         {petData.map((post) => (
           <div key={post.id} className="post-page-card">
-            <img src={post.imageUrl} alt={post.title} className="post-image" />
+            {post.picture ? (
+                  <img 
+                  src={`data:image/png;base64,${post.picture}`} 
+                  alt={post.serviceName} 
+                  width = "150"
+                  height= "150"
+                  />
+                  ) : (
+                  <p>Loading...</p>
+                    )}
             <div className="post-text-section">
               <h3 className="post-page-title">{post.title}</h3>
               <p className="post-page-description">

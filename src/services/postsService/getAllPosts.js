@@ -17,7 +17,7 @@ const getAllPosts = async (page, activityTypeId) => {
     const response = await axiosInstance.get(
       `${endpoint}${requestParamForPage}${requestParamForActivityType}`
     );
-
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error(error);

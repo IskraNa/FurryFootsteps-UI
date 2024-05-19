@@ -17,7 +17,6 @@ function ServiceDetailsPage({ user }) {
   useEffect(() => {
     // Retrieve userId from local storage
     const userData = JSON.parse(localStorage.getItem("userData"));
-    // console.log("User Data:", userData); 
   
     if (userData) {
       const { id } = userData;
@@ -30,6 +29,7 @@ function ServiceDetailsPage({ user }) {
   const refreshService = async (id) => {
     try {
       const response = await getPostById(id);
+      console.log(response)
       setService(response);
     } catch (error) {
       console.error("Error fetching service:", error);
@@ -133,16 +133,22 @@ function ServiceDetailsPage({ user }) {
     }
     return stars;
   };
-
+  console.log(service)
   return (
     <div>
       <div className="service-card">
         <div className="service-details-container">
           <div className="service-details-image">
-            <img
-              src={require(`../../assets/dog_walking.png`)}
-              alt={service.serviceName}
-            />
+          {service.picture ? (
+                  <img 
+                  src={`data:image/png;base64,${service.picture}`} 
+                  alt={service.serviceName} 
+                  width = "150"
+                  height= "150"
+                  />
+                  ) : (
+                  <p>Loading...</p>
+                    )}
             {/* <div className="star-rating">{renderStars(service.rating)} </div> */}
           </div>
           <div className="service-details-info">

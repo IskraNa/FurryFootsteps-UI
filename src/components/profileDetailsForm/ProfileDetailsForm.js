@@ -4,12 +4,17 @@ import "./ProfileDetailsForm.css";
 import axiosInstance from "../../services/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import EditProfileForm from "../editProfileForm/EditProfileForm";
 
 const ProfileDetailsForm = ({ user, userPosts }) => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState(userPosts || []);
   const [postRequests, setPostRequests] = useState([]);
+  const [editMode, setEditMode] = useState(false);
 
+  const toggleEditMode = () =>{
+    setEditMode(!editMode);
+  }
   useEffect(() => {
     setPosts(userPosts || []);
   }, [userPosts]);
@@ -20,6 +25,7 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
         const response = await fetch(
           `http://localhost:8080/api/users/getRequestsById/${userId}`
         );
+        
         if (response.ok) {
           const data = await response.json();
           if (data && data.length > 0) {
@@ -104,21 +110,46 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
   const handleEdit = (post) => {
     navigate("/addService", { state: { post } });
   };
+  // const handleEditProfile = async (updatedUserData) =>{
+  //   try {
+  //     const response = await axios.put(
+  //       `http://localhost:8080/api/users/${user.id}`
+  //     );
+  //     console.log("Updating profile with data:", updatedUserData);
+      
+  //     setEditMode(false);
+  //   } catch (error) {
+  //     console.error('Error updating profile:', error);
+  //   }
+  // };
 
   return (
   <div className="profile-details-container">
-    <div className="profile-header">
-      {user && (
-        <img
-          src={require("../../assets/post2.png")}
-          alt={`${user.name} ${user.surname}`}
-          className="user-image"
-        />
-      )}
-      Profile Details
-    </div>
+   
     <div className="details-flex">
+      {editMode ? (
+        <div>
+        <EditProfileForm user = {user} onCancel={toggleEditMode}/>
+        <button className="button edit-information" onClick={toggleEditMode}>
+          &larr; Back to your profile page
+        </button>
+        </div>
+    ) : (
+      
       <div className="profile-info">
+         <div className="profile-header">
+          { (user  && user.picture) ?  (
+              <img 
+                src={`data:image/png;base64,${user.picture}`} 
+                alt={user.serviceName} 
+                width = "200"
+                height= "200"
+              />
+          ) : (
+          <p>No picture</p>
+              )}
+      
+    </div>
         <h2>Information Summary</h2>
         {user && (
           <>
@@ -136,11 +167,15 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
             </p>
           </>
         )}
-        <Link className="button edit-information">Edit Information</Link>
+
         <button className="button logout" onClick={handleLogout}>
           Logout
         </button>
-      </div>
+        <button className="button edit-information" onClick={toggleEditMode}>
+          Update Information
+        </button>
+      </div>)}
+      
       <div className="services-details">
         <h2>Your Posts</h2>
         <div className="services-list">
@@ -148,21 +183,24 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
             <p>You don't have any posts. Create here!</p>
           ) : (
             userPosts.map((service) => (
+
+    
               <div key={service.id} className="service-item">
                 <Link to={`/details/${service.id}`}>
-                  <img
-                    src={require("../../assets/post1.jpg")}
-                    alt={
-                      service.activityType
-                        ? service.activityType
-                        : "N/A"
-                    }
-                    className="service-image"
+                {service.picture ? (
+                  <img 
+                  src={`data:image/png;base64,${service.picture}`} 
+                  alt={service.serviceName} 
+                  width = "150"
+                  height= "150"
                   />
+                  ) : (
+                  <p>Loading...</p>
+                    )}
                 </Link>
                 <h4>
                   {service.activityType
-                    ? service.activityType
+                    ? service.activityType.type
                     : "N/A"}
                 </h4>
                 <p>{service.description}</p>
