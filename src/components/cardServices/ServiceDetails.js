@@ -4,28 +4,26 @@ import "./ServiceDetails.css";
 import CommentsSection from "./CommentsSection";
 import getPostById from "../../services/postsService/getPostById";
 import axiosInstance from "../../services/axiosInstance";
-import axios from 'axios';
+import axios from "axios";
 
 function ServiceDetailsPage({ user }) {
   const { id: postId } = useParams();
   const [service, setService] = useState(null);
   const [selectedAvailability, setSelectedAvailability] = useState(null);
   const [requestId, setRequestId] = useState(null);
-  const [userId,setUserId] = useState(null);
+  //const [userId, setUserId] = useState(null);
 
+  // useEffect(() => {
+  //   // Retrieve userId from local storage
+  //   const userData = JSON.parse(localStorage.getItem("userData"));
+  //   // console.log("User Data:", userData);
 
-  useEffect(() => {
-    // Retrieve userId from local storage
-    const userData = JSON.parse(localStorage.getItem("userData"));
-    // console.log("User Data:", userData); 
-  
-    if (userData) {
-      const { id } = userData;
-      // console.log("User ID:", id); 
-      setUserId(id);
-    }
-  }, []); 
-  
+  //   if (userData) {
+  //     const { id } = userData;
+  //     // console.log("User ID:", id);
+  //     setUserId(id);
+  //   }
+  // }, []);
 
   const refreshService = async (id) => {
     try {
@@ -61,39 +59,37 @@ function ServiceDetailsPage({ user }) {
 
   const handleApply = async () => {
     if (selectedAvailability) {
+      console.log("Selected Availability:", selectedAvailability);
       try {
         const requestData = {
-          status: 'PENDING' 
+          status: "PENDING",
         };
-  
-        console.log('Request Data:', requestData);
-  
-        const response = await axios.post('http://localhost:8080/api/requests/create', requestData, {
-          params: {
-            postId: postId,
-            userId: userId
+
+        console.log("Request Data:", requestData);
+        console.log("user", user.id);
+        console.log("avaliability", selectedAvailability.id);
+        const response = await axios.post(
+          "http://localhost:8080/api/requests/create",
+          requestData,
+          {
+            params: {
+              availabilityId: selectedAvailability.id,
+              userRequesterId: user.id,
+            },
           }
-        });
-  
+        );
+
         setRequestId(response.data.id);
-        console.log('Created request.', response.data.id); // Use response.data.id
-        alert('Request successfully created!');
+        console.log("Created request.", response.data.id); // Use response.data.id
+        alert("Request successfully created!");
       } catch (error) {
-        console.error('Error creating request:', error.message);
-        alert('Error creating request. Please try again later.');
+        console.error("Error creating request:", error.message);
+        alert("Error creating request. Please try again later.");
       }
     } else {
-      alert('Please select an availability');
+      alert("Please select an availability");
     }
   };
-  
-
-  
-  
-
-
-
-  
 
   const excludedProperties = [
     "id",
@@ -178,7 +174,7 @@ function ServiceDetailsPage({ user }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {service.availabilities.map((availability, index) => (
+                  {/* {service.availabilities.map((availability, index) => (
                     <tr key={index}>
                       <td>
                         <input
@@ -192,6 +188,22 @@ function ServiceDetailsPage({ user }) {
                           onChange={() =>
                             setSelectedAvailability(availability.dateTimeFrom)
                           }
+                        />
+                      </td>
+                      <td>{availability.dateTimeFrom}</td>
+                      <td>{availability.dateTimeTo}</td>
+                    </tr>
+                  ))} */}
+                  {service.availabilities.map((availability, index) => (
+                    <tr key={index}>
+                      <td>
+                        <input
+                          type="radio"
+                          id={`availability${index}`}
+                          name="availability"
+                          value={availability.availabilityId}
+                          checked={selectedAvailability?.id === availability.id}
+                          onChange={() => setSelectedAvailability(availability)}
                         />
                       </td>
                       <td>{availability.dateTimeFrom}</td>

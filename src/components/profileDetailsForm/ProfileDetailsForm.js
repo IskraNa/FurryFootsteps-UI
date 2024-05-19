@@ -3,65 +3,52 @@ import { Link } from "react-router-dom";
 import "./ProfileDetailsForm.css";
 import axiosInstance from "../../services/axiosInstance";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import getUserPosterRequests from "../../services/userService/getUserPosterRequests";
+import getUserRequesterRequests from "../../services/userService/getUserRequesterRequests";
+import acceptRequest from "../../services/requestService/acceptRequest";
+import declineRequest from "../../services/requestService/declineRequest";
 
 const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
   const navigate = useNavigate();
-  const [posts, setPosts] = useState(userPosts || []);
-  const [postRequests, setPostRequests] = useState([]);
+  const [postRequestsPoster, setPostRequestsPosters] = useState([]);
+  const [postRequestsRequester, setPostRequestsRequester] = useState([]);
 
-  useEffect(() => {
-    setPosts(userPosts || []);
-  }, [userPosts]);
-
-  useEffect(() => {
-    const fetchPostRequests = async (userId) => {
-      try {
-        const response = await fetch(
-          `http://localhost:8080/api/users/getRequestsById/${userId}`
-        );
-        if (response.ok) {
-          const data = await response.json();
-          if (data && data.length > 0) {
-            setPostRequests(data);
-          } else {
-            console.log("No post requests found for user ID:", userId);
-          }
-        } else {
-          console.error(
-            "Failed to fetch post requests:",
-            response.status,
-            response.statusText
-          );
-        }
-      } catch (error) {
-        console.error("Error fetching post requests:", error);
-      }
-    };
-
-    if (user) {
-      fetchPostRequests(user.id);
-    }
-  }, [user]);
-
-  const fetchUserIdByPostId = async (postId) => {
+  const fetchPostRequestsPoster = async (userId) => {
     try {
-      const response = await axios.get(
-        `http://localhost:8080/api/posts/${postId}/user`
-      );
-      return response.data;
+      const response = await getUserPosterRequests(userId);
+      setPostRequestsPosters(response);
     } catch (error) {
-      console.error("Error fetching user ID by post ID:", error);
-      return null;
+      console.error("Error fetching post requests:", error);
     }
   };
 
-  const handleAccept = async (requestId) => {
+  const fetchPostRequestsRequester = async (userId) => {
     try {
-      // Remove the accepted request from the postRequests array
-      setPostRequests(
-        postRequests.filter((request) => request.id !== requestId)
-      );
+      const response = await getUserRequesterRequests(userId);
+      setPostRequestsRequester(response);
+    } catch (error) {
+      console.error("Error fetching post requests:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (user) {
+      fetchPostRequestsPoster(user.id);
+      fetchPostRequestsRequester(user.id);
+    }
+  }, [user]);
+
+  const handleAccept = async (requestId, availabilityId) => {
+    try {
+      console.log("Request ID:", requestId);
+      const response = await acceptRequest(requestId, availabilityId);
+      console.log("Accept response:", response);
+      fetchPostRequestsPoster(user.id);
+      fetchPostRequestsRequester(user.id);
+
+      // setPostRequestsPosters(
+      //   postRequestsPoster.filter((request) => request.id !== requestId)
+      // );
       // Display success alert
       alert("You successfully accepted the request.");
     } catch (error) {
@@ -71,11 +58,16 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
 
   const handleDecline = async (requestId) => {
     try {
-      // Remove the declined request from the postRequests array
-      setPostRequests(
-        postRequests.filter((request) => request.id !== requestId)
-      );
+      // setPostRequestsPosters(
+      //   postRequestsPoster.filter((request) => request.id !== requestId)
+      // );
       // Display success alert
+
+      const response = await declineRequest(requestId);
+      console.log("Decline response:", response);
+      fetchPostRequestsPoster(user.id);
+      fetchPostRequestsRequester(user.id);
+
       alert("You successfully declined the request.");
     } catch (error) {
       console.error("Error declining request:", error.message);
@@ -99,7 +91,6 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
       await axiosInstance.delete(`/posts/${postId}`);
       refreshUserPosts(user.id);
       console.log("Post deleted successfully");
-      //window.location.reload();
     } catch (error) {
       console.error("Delete error:", error.message);
     }
@@ -183,32 +174,90 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
           </Link>
         </div>
         <div className="requests-section">
-          <h2>Post Requests</h2>
-          <ul>
-            {postRequests.length === 0 ? (
-              <p>No post requests found.</p>
-            ) : (
-              postRequests.map((request) => (
-                <li key={request.id}>
-                  <span>User: {`${request.user.name}`}</span>
-                  <span> Post Description: {request.post?.description}</span>
-                  <span> Post: {request.post?.id}</span>
-                  <button
-                    className="button accept"
-                    onClick={() => handleAccept(request.id)}
-                  >
-                    Accept
-                  </button>
-                  <button
-                    className="button decline"
-                    onClick={() => handleDecline(request.id)}
-                  >
-                    Decline
-                  </button>
-                </li>
-              ))
-            )}
-          </ul>
+          <h2>Requests on your Posts</h2>
+          <table className="requests-table">
+            <thead>
+              <tr>
+                <th>Requested By</th>
+                <th>Post</th>
+                <th>Time</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {postRequestsPoster.length === 0 ? (
+                <tr>
+                  <td colSpan="4">No requests on your posts found.</td>
+                </tr>
+              ) : (
+                postRequestsPoster.map((request) => (
+                  <tr key={request.id}>
+                    <td>{request.userRequesterName}</td>
+                    <td>
+                      <Link to={`/details/${request.postId}`}>
+                        {request.postName}
+                      </Link>
+                    </td>
+                    <td> {request.availabilityTime}</td>
+                    <td>
+                      <button
+                        className="button accept"
+                        onClick={() =>
+                          handleAccept(
+                            request.requestId,
+                            request.availabilityId
+                          )
+                        }
+                      >
+                        Accept
+                      </button>
+                      <button
+                        className="button decline"
+                        onClick={() => handleDecline(request.requestId)}
+                      >
+                        Decline
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+        <div className="requests-section">
+          <h2>Your Requests on other Posts</h2>
+          <table className="requests-table">
+            <thead>
+              <tr>
+                <th>Posted By</th>
+                <th>Post</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {postRequestsRequester.length === 0 ? (
+                <tr>
+                  <td colSpan="4">No requests on other posts found.</td>
+                </tr>
+              ) : (
+                postRequestsRequester.map((request) => (
+                  <tr key={request.id}>
+                    <td>{request.userPosterName}</td>
+                    <td>
+                      <Link to={`/details/${request.postId}`}>
+                        {request.postName}
+                      </Link>
+                    </td>
+                    <td>{request.availabilityTime} </td>
+                    <td className={`status-${request.status.toLowerCase()}`}>
+                      {request.status}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

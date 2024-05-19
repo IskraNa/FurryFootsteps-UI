@@ -10,42 +10,49 @@
 .profile-header {
   font-size: 28px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .details-flex {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .profile-info,
-.services-details {
+.services-details,
+.requests-section {
   background: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.services-details {
-  position: relative;
-  overflow-x: auto;
-  overflow-y: hidden;
 }
 
 .services-list {
   display: flex;
   flex-wrap: nowrap;
   padding-bottom: 20px;
+  gap: 20px;
+  overflow-x: auto;
 }
 
 .service-item {
   min-width: 200px;
   max-width: 200px;
   padding: 20px;
-  margin-right: 20px;
   background: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-decoration: none;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.service-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .button {
@@ -85,11 +92,8 @@
 }
 
 .button.delete {
-  background-image: url("../../assets/delete_button.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 24px;
-  height: 24px;
+  background-color: #f44336;
+  color: #fff;
 }
 
 .button.add-service {
@@ -106,11 +110,44 @@
   opacity: 0.9;
 }
 
-.service-image {
-  width: 200px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
+.requests-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.requests-table th,
+.requests-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.requests-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.requests-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.requests-table tr:hover {
+  background-color: #ddd;
+}
+
+.requests-table td button {
+  margin-right: 5px;
+}
+
+.requests-table td .accept {
+  background-color: #4caf50;
+  color: white;
+}
+
+.requests-table td .decline {
+  background-color: #f44336;
+  color: white;
 }
 
 .user-image {
@@ -118,4 +155,18 @@
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.status-pending {
+  background-color: #f5ec99;
+}
+
+.status-accepted {
+  background-color: #8eeb91;
+  color: white;
+}
+
+.status-declined {
+  background-color: #fa8c84;
+  color: white;
 }
