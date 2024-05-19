@@ -7,6 +7,7 @@ import getUserPosterRequests from "../../services/userService/getUserPosterReque
 import getUserRequesterRequests from "../../services/userService/getUserRequesterRequests";
 import acceptRequest from "../../services/requestService/acceptRequest";
 import declineRequest from "../../services/requestService/declineRequest";
+import { toast } from "react-toastify";
 
 const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
   const navigate = useNavigate();
@@ -40,17 +41,10 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
 
   const handleAccept = async (requestId, availabilityId) => {
     try {
-      console.log("Request ID:", requestId);
       const response = await acceptRequest(requestId, availabilityId);
-      console.log("Accept response:", response);
       fetchPostRequestsPoster(user.id);
       fetchPostRequestsRequester(user.id);
-
-      // setPostRequestsPosters(
-      //   postRequestsPoster.filter((request) => request.id !== requestId)
-      // );
-      // Display success alert
-      alert("You successfully accepted the request.");
+      toast.success("You successfully accepted the request.");
     } catch (error) {
       console.error("Error accepting request:", error.message);
     }
@@ -58,17 +52,12 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
 
   const handleDecline = async (requestId) => {
     try {
-      // setPostRequestsPosters(
-      //   postRequestsPoster.filter((request) => request.id !== requestId)
-      // );
-      // Display success alert
-
       const response = await declineRequest(requestId);
       console.log("Decline response:", response);
       fetchPostRequestsPoster(user.id);
       fetchPostRequestsRequester(user.id);
 
-      alert("You successfully declined the request.");
+      toast.success("You successfully declined the request.");
     } catch (error) {
       console.error("Error declining request:", error.message);
     }
@@ -90,7 +79,7 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
     try {
       await axiosInstance.delete(`/posts/${postId}`);
       refreshUserPosts(user.id);
-      console.log("Post deleted successfully");
+      toast.success("Post deleted successfully");
     } catch (error) {
       console.error("Delete error:", error.message);
     }
@@ -99,6 +88,19 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
   const handleEdit = (post) => {
     navigate("/addService", { state: { post } });
   };
+
+  if (!user) {
+    return (
+      <div className="profile-details-container">
+        <div className="profile-header">
+          Want to view your profile?
+          <Link to="/login" className="button">
+            Login first.
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="profile-details-container">

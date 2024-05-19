@@ -3,6 +3,7 @@ import "./LoginForm.css";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../services/axiosInstance";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginForm = ({ refreshUser }) => {
   const [formData, setFormData] = useState({
@@ -21,34 +22,33 @@ const LoginForm = ({ refreshUser }) => {
 
   const handleLogin = async (event) => {
     event.preventDefault();
-  
+
     try {
       const response = await axiosInstance.post("/users/login", formData);
-  
-      // Extract userId from response data
+
       const { userId } = response.data;
-  
-      // Store user data including userId in local storage
-      localStorage.setItem("userData", JSON.stringify({ ...response.data, userId }));
-  
+
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({ ...response.data, userId })
+      );
+
       setFormData({
         email: "",
         password: "",
       });
       setError("");
-  
-      // Refresh user data in the parent component
+
       refreshUser();
-  
-      // Redirect to home page
+
       navigate("/");
       window.location.reload();
+      toast.success("Login successful.");
     } catch (error) {
       setError("Login failed. Invalid credentials.");
       console.error("Login error:", error.message);
     }
   };
-  
 
   return (
     <div className="login-form-container">

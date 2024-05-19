@@ -9,15 +9,6 @@ import RectangleNav from "../../assets/rectangle-nav.png";
 import { Link } from "react-router-dom";
 
 const Header = ({ user, refreshUser }) => {
-  // const [userName, setUserName] = useState("");
-
-  // useEffect(() => {
-  //   const User = JSON.parse(localStorage.getItem("userData"));
-  //   if (User && User.name) {
-  //     setUserName(User.name);
-  //   }
-  // }, []);
-
   return (
     <div>
       <div className="rectangle-nav">

@@ -115,13 +115,13 @@ const HeaderSmall = ({ user }) => {
             </div>
           )}
         </li>
-        {!open ? (
+        {/* {!open ? (
           <li className="nav-search-small">
             <SearchBar></SearchBar>
           </li>
         ) : (
           ""
-        )}
+        )} */}
       </ul>
     </nav>
   );

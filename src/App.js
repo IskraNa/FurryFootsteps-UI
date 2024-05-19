@@ -18,6 +18,8 @@ import getAllPosts from "./services/postsService/getAllPosts.js";
 import EditProfilePage from "./views/EditProfilePage";
 import getUserProfile from "./services/userService/getUserProfile.js";
 import getUserPosts from "./services/userService/getUserPosts.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [activityTypes, setActivityTypes] = useState([]);
@@ -175,6 +177,7 @@ function App() {
         <Route path="/edit" element={<EditProfilePage />} exact />
       </Routes>
       <Footer />
+      <ToastContainer />
     </Router>
   );
 }

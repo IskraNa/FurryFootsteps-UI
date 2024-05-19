@@ -4,26 +4,12 @@ import "./ServiceDetails.css";
 import CommentsSection from "./CommentsSection";
 import getPostById from "../../services/postsService/getPostById";
 import axiosInstance from "../../services/axiosInstance";
-import axios from "axios";
+import { toast } from "react-toastify";
 
 function ServiceDetailsPage({ user }) {
   const { id: postId } = useParams();
   const [service, setService] = useState(null);
   const [selectedAvailability, setSelectedAvailability] = useState(null);
-  const [requestId, setRequestId] = useState(null);
-  //const [userId, setUserId] = useState(null);
-
-  // useEffect(() => {
-  //   // Retrieve userId from local storage
-  //   const userData = JSON.parse(localStorage.getItem("userData"));
-  //   // console.log("User Data:", userData);
-
-  //   if (userData) {
-  //     const { id } = userData;
-  //     // console.log("User ID:", id);
-  //     setUserId(id);
-  //   }
-  // }, []);
 
   const refreshService = async (id) => {
     try {
@@ -59,17 +45,13 @@ function ServiceDetailsPage({ user }) {
 
   const handleApply = async () => {
     if (selectedAvailability) {
-      console.log("Selected Availability:", selectedAvailability);
       try {
         const requestData = {
           status: "PENDING",
         };
 
-        console.log("Request Data:", requestData);
-        console.log("user", user.id);
-        console.log("avaliability", selectedAvailability.id);
-        const response = await axios.post(
-          "http://localhost:8080/api/requests/create",
+        const response = await axiosInstance.post(
+          "/requests/create",
           requestData,
           {
             params: {
@@ -79,18 +61,15 @@ function ServiceDetailsPage({ user }) {
           }
         );
 
-        setRequestId(response.data.id);
-        console.log("Created request.", response.data.id); // Use response.data.id
-        alert("Request successfully created!");
+        toast.success("Request successfully created!");
       } catch (error) {
         console.error("Error creating request:", error.message);
         alert("Error creating request. Please try again later.");
       }
     } else {
-      alert("Please select an availability");
+      toast.error("Please select an availability");
     }
   };
-
   const excludedProperties = [
     "id",
     "reviews",
@@ -109,27 +88,6 @@ function ServiceDetailsPage({ user }) {
     petType: "Pet Type",
   };
 
-  // Function to render star rating
-  const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 0; i < 5; i++) {
-      if (i < rating) {
-        stars.push(
-          <span key={i} className="star">
-            &#9733;
-          </span>
-        );
-      } else {
-        stars.push(
-          <span key={i} className="star">
-            &#9734;
-          </span>
-        );
-      }
-    }
-    return stars;
-  };
-
   return (
     <div>
       <div className="service-card">
@@ -139,7 +97,6 @@ function ServiceDetailsPage({ user }) {
               src={require(`../../assets/dog_walking.png`)}
               alt={service.serviceName}
             />
-            {/* <div className="star-rating">{renderStars(service.rating)} </div> */}
           </div>
           <div className="service-details-info">
             <div className="service-name">{service.serviceName}</div>
@@ -174,26 +131,6 @@ function ServiceDetailsPage({ user }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* {service.availabilities.map((availability, index) => (
-                    <tr key={index}>
-                      <td>
-                        <input
-                          type="radio"
-                          id={`availability${index}`}
-                          name="availability"
-                          value={availability.dateTimeFrom}
-                          checked={
-                            selectedAvailability === availability.dateTimeFrom
-                          }
-                          onChange={() =>
-                            setSelectedAvailability(availability.dateTimeFrom)
-                          }
-                        />
-                      </td>
-                      <td>{availability.dateTimeFrom}</td>
-                      <td>{availability.dateTimeTo}</td>
-                    </tr>
-                  ))} */}
                   {service.availabilities.map((availability, index) => (
                     <tr key={index}>
                       <td>

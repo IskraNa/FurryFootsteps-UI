@@ -3,6 +3,7 @@ import "./RegisterForm.css";
 import axiosInstance from "../../services/axiosInstance";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const RegistrationForm = () => {
   const [error, setError] = useState("");
@@ -46,6 +47,7 @@ const RegistrationForm = () => {
         repeatPassword: "",
       });
       navigate("/login");
+      toast.success("Registration successful. Please login.");
     } catch (error) {
       setError("Registration failed. Please try again.");
       console.error("Registration error:", error.message);

@@ -4,6 +4,7 @@ import "./addServiceForm.css";
 import axiosInstance from "../../services/axiosInstance";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import { format, isPast } from "date-fns";
+import { toast } from "react-toastify";
 
 const AddServiceForm = ({
   activityTypes,
@@ -28,8 +29,6 @@ const AddServiceForm = ({
     picture: [],
     userId: userId,
   });
-
-  const [isDateTimeInPast, setIsDateTimeInPast] = useState(false);
 
   useEffect(() => {
     if (postToEdit) {
@@ -85,7 +84,6 @@ const AddServiceForm = ({
       setError("Selected date is in the past!");
     }
 
-    setIsDateTimeInPast(isInPast);
     const formattedDate = format(dateObject, "dd-MM-yyyy HH:mm:ss");
     const updatedAvailabilities = [...formData.availabilities];
     updatedAvailabilities[index][field] = formattedDate;
@@ -112,8 +110,10 @@ const AddServiceForm = ({
       if (postToEdit) {
         await axiosInstance.put(`/posts/${postToEdit.id}`, formData);
         console.log("Post updated successfully");
+        toast.success("Post updated successfully.");
       } else {
         await axiosInstance.post("/posts/add", formData);
+        toast.success("Service added successfully.");
         console.log("Service added successfully");
       }
       navigate("/profile");
@@ -127,7 +127,7 @@ const AddServiceForm = ({
   return (
     <div className="add-service-container">
       <div className="add-service-form">
-        <h2>{postToEdit ? "Edit Service" : "Add a Service"}</h2>
+        <h2>{postToEdit ? "Edit Post" : "Add a new Post"}</h2>
         <form onSubmit={handleSubmit}>
           <select
             name="activityTypeId"
@@ -248,11 +248,12 @@ const AddServiceForm = ({
 
           <div style={{ marginTop: "50px" }}>
             <button type="submit">
-              {postToEdit ? "Update Service" : "Add Service"}
+              {postToEdit ? "Update Post" : "Add Post"}
             </button>
           </div>
         </form>
       </div>
+      <br />
     </div>
   );
 };
