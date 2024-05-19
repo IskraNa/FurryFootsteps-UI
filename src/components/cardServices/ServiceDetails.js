@@ -14,6 +14,7 @@ function ServiceDetailsPage({ user }) {
   const refreshService = async (id) => {
     try {
       const response = await getPostById(id);
+      console.log(response);
       setService(response);
     } catch (error) {
       console.error("Error fetching service:", error);
@@ -78,6 +79,7 @@ function ServiceDetailsPage({ user }) {
     "userId",
     "activityTypeId",
     "availabilities",
+    "picture",
   ];
   const propertyChanges = {
     description: "Description",
@@ -93,10 +95,16 @@ function ServiceDetailsPage({ user }) {
       <div className="service-card">
         <div className="service-details-container">
           <div className="service-details-image">
-            <img
-              src={require(`../../assets/dog_walking.png`)}
-              alt={service.serviceName}
-            />
+            {service.picture ? (
+              <img
+                src={`data:image/png;base64,${service.picture}`}
+                alt={service.serviceName}
+                width="150"
+                height="150"
+              />
+            ) : (
+              <p>Loading...</p>
+            )}
           </div>
           <div className="service-details-info">
             <div className="service-name">{service.serviceName}</div>

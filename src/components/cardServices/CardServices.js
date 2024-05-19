@@ -1,15 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./CardService.css";
 import { Link } from "react-router-dom";
 
 function CardService({ service }) {
+ 
+
+ 
+
+
   return (
     <div className="card-service">
       <Link to={`/details/${service.id}`}>
-        <img
-          src={require(`../../assets/dog_walking.png`)}
-          alt={service.serviceName}
-        />
+        {service.picture ? (
+          <img src={`data:image/png;base64,${service.picture}`} alt={service.serviceName} />
+        ) : (
+          <p>Loading...</p>
+        )}
       </Link>
       <div className="card-details">
         <h3>{service.activityTypeName}</h3>
@@ -23,6 +29,7 @@ function CardService({ service }) {
     </div>
   );
 }
+
 
 function Pagination({ currentPage, totalPages, onPageChange }) {
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);

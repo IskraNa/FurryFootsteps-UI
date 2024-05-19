@@ -104,6 +104,7 @@ const AddServiceForm = ({
   };
 
   const handleSubmit = async (event) => {
+    console.log(formData)
     event.preventDefault();
     try {
       console.log(formData);

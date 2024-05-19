@@ -4,7 +4,7 @@ import Footer from "../components/footer/Footer";
 import ProfileDetailsForm from "../components/profileDetailsForm/ProfileDetailsForm";
 import "../components/registrationForm/RegisterForm.css";
 
-const ProfileDetailsPage = ({ user, userPosts, refreshUserPosts }) => {
+const ProfileDetailsPage = ({ user, userPosts, refreshUserPosts, userId }) => {
   return (
     <div>
       <HeaderSmall user={user} />
@@ -13,6 +13,7 @@ const ProfileDetailsPage = ({ user, userPosts, refreshUserPosts }) => {
           user={user}
           userPosts={userPosts}
           refreshUserPosts={refreshUserPosts}
+          userId={userId}
         />
       </div>
       {/*<Footer />*/}

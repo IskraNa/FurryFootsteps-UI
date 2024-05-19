@@ -8,12 +8,46 @@ import getUserRequesterRequests from "../../services/userService/getUserRequeste
 import acceptRequest from "../../services/requestService/acceptRequest";
 import declineRequest from "../../services/requestService/declineRequest";
 import { toast } from "react-toastify";
+import EditProfileForm from "../editProfileForm/EditProfileForm";
 
 const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
   const navigate = useNavigate();
   const [postRequestsPoster, setPostRequestsPosters] = useState([]);
   const [postRequestsRequester, setPostRequestsRequester] = useState([]);
+  const [editMode, setEditMode] = useState(false);
 
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
+  // useEffect(() => {
+  //   setPosts(userPosts || []);
+  // }, [userPosts]);
+
+  // useEffect(() => {
+  // const fetchPostRequests = async (userId) => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:8080/api/users/getRequestsById/${userId}`
+  //     );
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       if (data && data.length > 0) {
+  //         setPostRequests(data);
+  //       } else {
+  //         console.log("No post requests found for user ID:", userId);
+  //       }
+  //     } else {
+  //       console.error(
+  //         "Failed to fetch post requests:",
+  //         response.status,
+  //         response.statusText
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching post requests:", error);
+  //   }
+  // };
   const fetchPostRequestsPoster = async (userId) => {
     try {
       const response = await getUserPosterRequests(userId);
@@ -101,43 +135,77 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
       </div>
     );
   }
+  // const handleEditProfile = async (updatedUserData) => {
+  //   try {
+  //     const response = await axios.put(
+  //       `http://localhost:8080/api/users/${user.id}`
+  //     );
+  //     console.log("Updating profile with data:", updatedUserData);
+
+  //     setEditMode(false);
+  //   } catch (error) {
+  //     console.error("Error updating profile:", error);
+  //   }
+  // };
 
   return (
     <div className="profile-details-container">
-      <div className="profile-header">
-        {user && (
-          <img
-            src={require("../../assets/post2.png")}
-            alt={`${user.name} ${user.surname}`}
-            className="user-image"
-          />
-        )}
-        Profile Details
-      </div>
       <div className="details-flex">
-        <div className="profile-info">
-          <h2>Information Summary</h2>
-          {user && (
-            <>
-              <p>
-                <strong>Full name:</strong> {`${user.name} ${user.surname}`}
-              </p>
-              <p>
-                <strong>Phone:</strong> {user.phone}
-              </p>
-              <p>
-                <strong>Email:</strong> {user.email}
-              </p>
-              <p>
-                <strong>Location:</strong> {user.location}
-              </p>
-            </>
-          )}
-          <Link className="button edit-information">Edit Information</Link>
-          <button className="button logout" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
+        {editMode ? (
+          <div>
+            <EditProfileForm user={user} onCancel={toggleEditMode} />
+            <button
+              className="button edit-information"
+              onClick={toggleEditMode}
+            >
+              &larr; Back to your profile page
+            </button>
+          </div>
+        ) : (
+          <div className="profile-info">
+            <div className="profile-header">
+              {user && user.picture ? (
+                <img
+                  src={`data:image/png;base64,${user.picture}`}
+                  alt={user.serviceName}
+                  width="200"
+                  height="200"
+                />
+              ) : (
+                <p>No picture</p>
+              )}
+            </div>
+
+            <h2>Information Summary</h2>
+            {user && (
+              <>
+                <p>
+                  <strong>Full name:</strong> {`${user.name} ${user.surname}`}
+                </p>
+                <p>
+                  <strong>Phone:</strong> {user.phone}
+                </p>
+                <p>
+                  <strong>Email:</strong> {user.email}
+                </p>
+                <p>
+                  <strong>Location:</strong> {user.location}
+                </p>
+              </>
+            )}
+
+            <button className="button logout" onClick={handleLogout}>
+              Logout
+            </button>
+            <button
+              className="button edit-information"
+              onClick={toggleEditMode}
+            >
+              Update Information
+            </button>
+          </div>
+        )}
+
         <div className="services-details">
           <h2>Your Posts</h2>
           <div className="services-list">
@@ -147,11 +215,16 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
               userPosts.map((service) => (
                 <div key={service.id} className="service-item">
                   <Link to={`/details/${service.id}`}>
-                    <img
-                      src={require("../../assets/post1.jpg")}
-                      alt={service.activityTypeName}
-                      className="service-image"
-                    />
+                    {service.picture ? (
+                      <img
+                        src={`data:image/png;base64,${service.picture}`}
+                        alt={service.serviceName}
+                        width="150"
+                        height="150"
+                      />
+                    ) : (
+                      <p>Loading...</p>
+                    )}
                   </Link>
                   <h4>{service.activityTypeName}</h4>
                   <p>{service.description}</p>

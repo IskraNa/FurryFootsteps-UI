@@ -31,7 +31,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [userId, setUserId] = useState(null);
-
+  const [userPostRequests, setUserPostRequests] = useState([]);
   useEffect(() => {
     const fetchActivityTypes = async () => {
       try {
@@ -56,7 +56,10 @@ function App() {
     };
     fetchPetTypes();
   }, []);
-
+  const refreshUserPostRequests = async (userId) => {
+    try {
+    } catch (error) {}
+  };
   const refreshPosts = async (page, activityTypeId) => {
     try {
       const response = await getAllPosts(page - 1, activityTypeId);
@@ -170,11 +173,12 @@ function App() {
               user={user}
               userPosts={userPosts}
               refreshUserPosts={refreshUserPosts}
+              userId={userId}
             />
           }
           exact
         />
-        <Route path="/edit" element={<EditProfilePage />} exact />
+        <Route path="/edit" element={<EditProfilePage user={user} />} exact />
       </Routes>
       <Footer />
       <ToastContainer />

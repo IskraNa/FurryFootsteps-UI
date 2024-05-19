@@ -3,6 +3,7 @@ import "./CommentsSection.css";
 import axiosInstance from "../../services/axiosInstance";
 import { Link } from "react-router-dom";
 import { set } from "date-fns";
+import { toast } from "react-toastify";
 
 function CommentsSection({ reviews, user, postId, refreshService }) {
   const [comments, setComments] = useState([]);
@@ -51,6 +52,7 @@ function CommentsSection({ reviews, user, postId, refreshService }) {
       setRating(0);
       refreshService(postId);
       setError("");
+      toast.success("Comment posted successfully.");
     } catch (error) {
       setError("Error posting comment. Please try again.");
       console.error("Error posting comment:", error.message);
@@ -92,6 +94,7 @@ function CommentsSection({ reviews, user, postId, refreshService }) {
       setEditingRating(0);
       refreshService(postId);
       setError("");
+      toast.success("Comment updated successfully.");
     } catch (error) {
       setError("Error updating comment. Please try again.");
       console.error("Error updating comment:", error.message);
@@ -105,6 +108,7 @@ function CommentsSection({ reviews, user, postId, refreshService }) {
 
       refreshService(postId);
       setError("");
+      toast.success("Comment deleted successfully.");
     } catch (error) {
       setError("Error deleting comment. Please try again.");
       console.error("Error deleting comment:", error.message);
@@ -119,9 +123,14 @@ function CommentsSection({ reviews, user, postId, refreshService }) {
         <div key={review.id} className="comment">
           <div className="comment-header">
             <div className="comment-profile">
-              <img
+              {/* <img
                 src={review.profilePicture}
                 alt="Profile"
+                className="profile-picture"
+              /> */}
+              <img
+                src={`data:image/png;base64,${review.picture}`}
+                alt={review.profilePicture}
                 className="profile-picture"
               />
               <div className="profile-info">
