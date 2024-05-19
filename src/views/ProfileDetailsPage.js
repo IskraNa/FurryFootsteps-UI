@@ -4,12 +4,16 @@ import Footer from "../components/footer/Footer";
 import ProfileDetailsForm from "../components/profileDetailsForm/ProfileDetailsForm";
 import "../components/registrationForm/RegisterForm.css";
 
-const ProfileDetailsPage = ({ user, userPosts }) => {
+const ProfileDetailsPage = ({ user, userPosts, refreshUserPosts }) => {
   return (
     <div>
       <HeaderSmall user={user} />
       <div className="profile-details-container">
-        <ProfileDetailsForm user={user} userPosts={userPosts} />
+        <ProfileDetailsForm
+          user={user}
+          userPosts={userPosts}
+          refreshUserPosts={refreshUserPosts}
+        />
       </div>
       {/*<Footer />*/}
     </div>

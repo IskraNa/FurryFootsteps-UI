@@ -5,7 +5,7 @@ import axiosInstance from "../../services/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const ProfileDetailsForm = ({ user, userPosts }) => {
+const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState(userPosts || []);
   const [postRequests, setPostRequests] = useState([]);
@@ -59,18 +59,22 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
   const handleAccept = async (requestId) => {
     try {
       // Remove the accepted request from the postRequests array
-      setPostRequests(postRequests.filter(request => request.id !== requestId));
+      setPostRequests(
+        postRequests.filter((request) => request.id !== requestId)
+      );
       // Display success alert
       alert("You successfully accepted the request.");
     } catch (error) {
       console.error("Error accepting request:", error.message);
     }
   };
-  
+
   const handleDecline = async (requestId) => {
     try {
       // Remove the declined request from the postRequests array
-      setPostRequests(postRequests.filter(request => request.id !== requestId));
+      setPostRequests(
+        postRequests.filter((request) => request.id !== requestId)
+      );
       // Display success alert
       alert("You successfully declined the request.");
     } catch (error) {
@@ -90,12 +94,12 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
     }
   };
 
-  const handleDelete = async (postId) => {
+  const handlePostDelete = async (postId) => {
     try {
       await axiosInstance.delete(`/posts/${postId}`);
-      setPosts(posts.filter((post) => post.id !== postId));
+      refreshUserPosts(user.id);
       console.log("Post deleted successfully");
-      window.location.reload();
+      //window.location.reload();
     } catch (error) {
       console.error("Delete error:", error.message);
     }
@@ -106,119 +110,109 @@ const ProfileDetailsForm = ({ user, userPosts }) => {
   };
 
   return (
-  <div className="profile-details-container">
-    <div className="profile-header">
-      {user && (
-        <img
-          src={require("../../assets/post2.png")}
-          alt={`${user.name} ${user.surname}`}
-          className="user-image"
-        />
-      )}
-      Profile Details
-    </div>
-    <div className="details-flex">
-      <div className="profile-info">
-        <h2>Information Summary</h2>
+    <div className="profile-details-container">
+      <div className="profile-header">
         {user && (
-          <>
-            <p>
-              <strong>Full name:</strong> {`${user.name} ${user.surname}`}
-            </p>
-            <p>
-              <strong>Phone:</strong> {user.phone}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Location:</strong> {user.location}
-            </p>
-          </>
+          <img
+            src={require("../../assets/post2.png")}
+            alt={`${user.name} ${user.surname}`}
+            className="user-image"
+          />
         )}
-        <Link className="button edit-information">Edit Information</Link>
-        <button className="button logout" onClick={handleLogout}>
-          Logout
-        </button>
+        Profile Details
       </div>
-      <div className="services-details">
-        <h2>Your Posts</h2>
-        <div className="services-list">
-          {userPosts.length === 0 ? (
-            <p>You don't have any posts. Create here!</p>
-          ) : (
-            userPosts.map((service) => (
-              <div key={service.id} className="service-item">
-                <Link to={`/details/${service.id}`}>
-                  <img
-                    src={require("../../assets/post1.jpg")}
-                    alt={
-                      service.activityType
-                        ? service.activityType
-                        : "N/A"
-                    }
-                    className="service-image"
-                  />
-                </Link>
-                <h4>
-                  {service.activityType
-                    ? service.activityType
-                    : "N/A"}
-                </h4>
-                <p>{service.description}</p>
-                <button
-                  className="button edit"
-                  onClick={() => handleEdit(service)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="button delete"
-                  onClick={() => handleDelete(service.id)}
-                >
-                  Delete
-                </button>
-              </div>
-            ))
+      <div className="details-flex">
+        <div className="profile-info">
+          <h2>Information Summary</h2>
+          {user && (
+            <>
+              <p>
+                <strong>Full name:</strong> {`${user.name} ${user.surname}`}
+              </p>
+              <p>
+                <strong>Phone:</strong> {user.phone}
+              </p>
+              <p>
+                <strong>Email:</strong> {user.email}
+              </p>
+              <p>
+                <strong>Location:</strong> {user.location}
+              </p>
+            </>
           )}
+          <Link className="button edit-information">Edit Information</Link>
+          <button className="button logout" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
-        <Link to="/addService" className="button add-service">
-          Add a new post +
-        </Link>
-      </div>
-      <div className="requests-section">
-        <h2>Post Requests</h2>
-        <ul>
-          {postRequests.length === 0 ? (
-            <p>No post requests found.</p>
-          ) : (
-            postRequests.map((request) => (
-              <li key={request.id}>
-                <span>
-                  User: {`${request.user.name}`}
-                </span>
-                <span> Post Description: {request.post?.description}</span>
-                <span> Post: {request.post?.id}</span>
-                <button
-                  className="button accept"
-                  onClick={() => handleAccept(request.id)}
-                >
-                  Accept
-                </button>
-                <button
-                  className="button decline"
-                  onClick={() => handleDecline(request.id)}
-                >
-                  Decline
-                </button>
-              </li>
-            ))
-          )}
-        </ul>
+        <div className="services-details">
+          <h2>Your Posts</h2>
+          <div className="services-list">
+            {userPosts.length === 0 ? (
+              <p>You don't have any posts. Create here!</p>
+            ) : (
+              userPosts.map((service) => (
+                <div key={service.id} className="service-item">
+                  <Link to={`/details/${service.id}`}>
+                    <img
+                      src={require("../../assets/post1.jpg")}
+                      alt={service.activityTypeName}
+                      className="service-image"
+                    />
+                  </Link>
+                  <h4>{service.activityTypeName}</h4>
+                  <p>{service.description}</p>
+                  <button
+                    className="button edit"
+                    onClick={() => handleEdit(service)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="button delete"
+                    onClick={() => handlePostDelete(service.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
+          <Link to="/addService" className="button add-service">
+            Add a new post +
+          </Link>
+        </div>
+        <div className="requests-section">
+          <h2>Post Requests</h2>
+          <ul>
+            {postRequests.length === 0 ? (
+              <p>No post requests found.</p>
+            ) : (
+              postRequests.map((request) => (
+                <li key={request.id}>
+                  <span>User: {`${request.user.name}`}</span>
+                  <span> Post Description: {request.post?.description}</span>
+                  <span> Post: {request.post?.id}</span>
+                  <button
+                    className="button accept"
+                    onClick={() => handleAccept(request.id)}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    className="button decline"
+                    onClick={() => handleDecline(request.id)}
+                  >
+                    Decline
+                  </button>
+                </li>
+              ))
+            )}
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 };
 
 export default ProfileDetailsForm;

@@ -163,7 +163,13 @@ function App() {
         <Route path="/posts" element={<PostPage user={user} />} exact />
         <Route
           path="/profile"
-          element={<ProfileDetailsPage user={user} userPosts={userPosts} />}
+          element={
+            <ProfileDetailsPage
+              user={user}
+              userPosts={userPosts}
+              refreshUserPosts={refreshUserPosts}
+            />
+          }
           exact
         />
         <Route path="/edit" element={<EditProfilePage />} exact />

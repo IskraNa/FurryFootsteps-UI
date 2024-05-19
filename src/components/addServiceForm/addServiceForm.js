@@ -15,8 +15,8 @@ const AddServiceForm = ({
   const [error, setError] = useState("");
   const location = useLocation();
   const postToEdit = location.state?.post;
-  const temp_user_data=localStorage.getItem("userData");
-  const userData = JSON.parse(temp_user_data)
+  const temp_user_data = localStorage.getItem("userData");
+  const userData = JSON.parse(temp_user_data);
   userId = userData.id;
   const [formData, setFormData] = useState({
     description: "",
@@ -36,12 +36,12 @@ const AddServiceForm = ({
       setFormData({
         ...postToEdit,
         availabilities: postToEdit.availabilities
-            ? postToEdit.availabilities.map((availability) => ({
+          ? postToEdit.availabilities.map((availability) => ({
               ...availability,
               dateTimeFrom: new Date(availability.dateTimeFrom),
               dateTimeTo: new Date(availability.dateTimeTo),
             }))
-            : [],
+          : [],
         picture: postToEdit.picture || [],
         userId: userId,
       });
@@ -49,35 +49,33 @@ const AddServiceForm = ({
   }, [postToEdit, userId]);
 
   const handleInputChange = (event) => {
-    
     const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
     });
-
   };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
-    console.log("File object: ",file);
+    console.log("File object: ", file);
 
-    if(file){
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const arrayBuffer = reader.result;
-      const uint8Array = new Uint8Array(arrayBuffer);
-      setFormData({
-        ...formData,
-        picture: Array.from(uint8Array),
-      });
-    };
-  
-    reader.readAsArrayBuffer(file);
-  } else {
-    console.error("No file select or object is undefined");
-  }
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const arrayBuffer = reader.result;
+        const uint8Array = new Uint8Array(arrayBuffer);
+        setFormData({
+          ...formData,
+          picture: Array.from(uint8Array),
+        });
+      };
+
+      reader.readAsArrayBuffer(file);
+    } else {
+      console.error("No file select or object is undefined");
+    }
   };
 
   const handleDateTimeChange = (index, field, value) => {
@@ -110,7 +108,7 @@ const AddServiceForm = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(formData)
+      console.log(formData);
       if (postToEdit) {
         await axiosInstance.put(`/posts/${postToEdit.id}`, formData);
         console.log("Post updated successfully");
@@ -118,8 +116,6 @@ const AddServiceForm = ({
         await axiosInstance.post("/posts/add", formData);
         console.log("Service added successfully");
       }
-      navigate("/profile");
-      window.location.reload();
       navigate("/profile");
       refreshUserPosts(userId);
     } catch (error) {
@@ -251,7 +247,9 @@ const AddServiceForm = ({
           {error && <p className="error-message">{error}</p>}
 
           <div style={{ marginTop: "50px" }}>
-            <button type="submit">{postToEdit ? "Update Service" : "Add Service"}</button>
+            <button type="submit">
+              {postToEdit ? "Update Service" : "Add Service"}
+            </button>
           </div>
         </form>
       </div>
