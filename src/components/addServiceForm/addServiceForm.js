@@ -104,7 +104,7 @@ const AddServiceForm = ({
   };
 
   const handleSubmit = async (event) => {
-    console.log(formData)
+    console.log(formData);
     event.preventDefault();
     try {
       console.log(formData);
@@ -114,8 +114,8 @@ const AddServiceForm = ({
         toast.success("Post updated successfully.");
       } else {
         await axiosInstance.post("/posts/add", formData);
-        toast.success("Service added successfully.");
-        console.log("Service added successfully");
+        toast.success("Post added successfully.");
+        console.log("Post added successfully");
       }
       navigate("/profile");
       refreshUserPosts(userId);
@@ -125,8 +125,18 @@ const AddServiceForm = ({
     }
   };
 
+  const handleBackToProfileButton = () => {
+    navigate("/profile");
+  };
+
   return (
     <div className="add-service-container">
+      <button
+        className="button edit-information"
+        onClick={handleBackToProfileButton}
+      >
+        &larr; Back to profile
+      </button>
       <div className="add-service-form">
         <h2>{postToEdit ? "Edit Post" : "Add a new Post"}</h2>
         <form onSubmit={handleSubmit}>
@@ -254,6 +264,7 @@ const AddServiceForm = ({
           </div>
         </form>
       </div>
+
       <br />
     </div>
   );

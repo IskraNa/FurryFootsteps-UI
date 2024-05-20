@@ -221,8 +221,8 @@ function CommentsSection({ reviews, user, postId, refreshService }) {
         </div>
       )}
       {!user && (
-        <div>
-          Want to post a comment?
+        <div className="text-bold">
+          Want to post a comment?{"  "}
           <Link to="/login">Login first.</Link>
         </div>
       )}

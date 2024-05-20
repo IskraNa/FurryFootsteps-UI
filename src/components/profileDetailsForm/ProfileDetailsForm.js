@@ -19,35 +19,7 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
   const toggleEditMode = () => {
     setEditMode(!editMode);
   };
-  // useEffect(() => {
-  //   setPosts(userPosts || []);
-  // }, [userPosts]);
 
-  // useEffect(() => {
-  // const fetchPostRequests = async (userId) => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:8080/api/users/getRequestsById/${userId}`
-  //     );
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       if (data && data.length > 0) {
-  //         setPostRequests(data);
-  //       } else {
-  //         console.log("No post requests found for user ID:", userId);
-  //       }
-  //     } else {
-  //       console.error(
-  //         "Failed to fetch post requests:",
-  //         response.status,
-  //         response.statusText
-  //       );
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching post requests:", error);
-  //   }
-  // };
   const fetchPostRequestsPoster = async (userId) => {
     try {
       const response = await getUserPosterRequests(userId);
@@ -135,18 +107,6 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
       </div>
     );
   }
-  // const handleEditProfile = async (updatedUserData) => {
-  //   try {
-  //     const response = await axios.put(
-  //       `http://localhost:8080/api/users/${user.id}`
-  //     );
-  //     console.log("Updating profile with data:", updatedUserData);
-
-  //     setEditMode(false);
-  //   } catch (error) {
-  //     console.error("Error updating profile:", error);
-  //   }
-  // };
 
   return (
     <div className="profile-details-container">
@@ -163,20 +123,18 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
           </div>
         ) : (
           <div className="profile-info">
+            <h2>Information Summary</h2>
             <div className="profile-header">
               {user && user.picture ? (
                 <img
                   src={`data:image/png;base64,${user.picture}`}
                   alt={user.serviceName}
-                  width="200"
-                  height="200"
                 />
               ) : (
                 <p>No picture</p>
               )}
             </div>
 
-            <h2>Information Summary</h2>
             {user && (
               <>
                 <p>
@@ -193,16 +151,18 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
                 </p>
               </>
             )}
-
-            <button className="button logout" onClick={handleLogout}>
-              Logout
-            </button>
+            <br />
+            <br />
             <button
               className="button edit-information"
               onClick={toggleEditMode}
             >
               Update Information
             </button>
+            <button className="button logout" onClick={handleLogout}>
+              Logout
+            </button>
+            <br />
           </div>
         )}
 
@@ -219,8 +179,7 @@ const ProfileDetailsForm = ({ user, userPosts, refreshUserPosts }) => {
                       <img
                         src={`data:image/png;base64,${service.picture}`}
                         alt={service.serviceName}
-                        width="150"
-                        height="150"
+                        className="service-image"
                       />
                     ) : (
                       <p>Loading...</p>

@@ -42,10 +42,12 @@
   background-clip: text;
   text-fill-color: transparent;
 }
+
 .userName {
   display: block;
   float: right;
 }
+
 .explore-button {
   position: absolute;
   left: 227px;
@@ -55,26 +57,31 @@
   justify-content: center;
   align-items: center;
   width: 30%;
-  max-width: 191px; /* Maximum width for larger screens */
-  height: auto; /* Allow for content to expand */
-  padding: 1.5vw 3vw; /* Adjust padding for responsiveness */
+  max-width: 191px;
+  height: auto;
+  padding: 1.5vw 3vw;
   background: #8ccc88;
-  border-radius: 10vw; /* Adjust border-radius for responsiveness */
+  border-radius: 10vw;
   border: none;
   font-family: "Fira Sans", sans-serif;
-  font-size: 1vw; /* Adjust font size for responsiveness */
+  font-size: 1vw;
   color: #ffffff;
-  text-align: center; /* Center align text */
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.explore-button:hover {
+  transform: translate(-50%, -5px);
 }
 
 .click-here {
   position: absolute;
   width: auto;
   height: auto;
-  right: 5%; /* Adjust right position as needed */
-  bottom: 2%; /* Adjust bottom position as needed */
+  right: 5%;
+  bottom: 2%;
   font-family: "Fira Sans", sans-serif;
-  font-size: 1.3vw; /* Adjust font size for responsiveness */
+  font-size: 1.3vw;
   color: #fdfdfd;
 }
 
@@ -156,6 +163,11 @@
     font-size: 1.5vw;
     color: #ffffff;
     text-align: center;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .explore-button:hover {
+    transform: translate(-50%, -5px);
   }
 
   .woman-with-dog {
