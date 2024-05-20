@@ -18,6 +18,8 @@ import getAllPosts from "./services/postsService/getAllPosts.js";
 import EditProfilePage from "./views/EditProfilePage";
 import getUserProfile from "./services/userService/getUserProfile.js";
 import getUserPosts from "./services/userService/getUserPosts.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [activityTypes, setActivityTypes] = useState([]);
@@ -29,7 +31,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [userId, setUserId] = useState(null);
-
+  const [userPostRequests, setUserPostRequests] = useState([]);
   useEffect(() => {
     const fetchActivityTypes = async () => {
       try {
@@ -54,7 +56,10 @@ function App() {
     };
     fetchPetTypes();
   }, []);
-
+  const refreshUserPostRequests = async (userId) => {
+    try {
+    } catch (error) {}
+  };
   const refreshPosts = async (page, activityTypeId) => {
     try {
       const response = await getAllPosts(page - 1, activityTypeId);
@@ -163,12 +168,20 @@ function App() {
         <Route path="/posts" element={<PostPage user={user} />} exact />
         <Route
           path="/profile"
-          element={<ProfileDetailsPage user={user} userPosts={userPosts} />}
+          element={
+            <ProfileDetailsPage
+              user={user}
+              userPosts={userPosts}
+              refreshUserPosts={refreshUserPosts}
+              userId={userId}
+            />
+          }
           exact
         />
-        <Route path="/edit" element={<EditProfilePage />} exact />
+        <Route path="/edit" element={<EditProfilePage user={user} />} exact />
       </Routes>
       <Footer />
+      <ToastContainer />
     </Router>
   );
 }

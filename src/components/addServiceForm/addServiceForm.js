@@ -4,6 +4,7 @@ import "./addServiceForm.css";
 import axiosInstance from "../../services/axiosInstance";
 import { MobileDateTimePicker } from "@mui/x-date-pickers";
 import { format, isPast } from "date-fns";
+import { toast } from "react-toastify";
 
 const AddServiceForm = ({
   activityTypes,
@@ -15,7 +16,9 @@ const AddServiceForm = ({
   const [error, setError] = useState("");
   const location = useLocation();
   const postToEdit = location.state?.post;
-
+  const temp_user_data = localStorage.getItem("userData");
+  const userData = JSON.parse(temp_user_data);
+  userId = userData.id;
   const [formData, setFormData] = useState({
     description: "",
     petSize: "",
@@ -27,19 +30,17 @@ const AddServiceForm = ({
     userId: userId,
   });
 
-  const [isDateTimeInPast, setIsDateTimeInPast] = useState(false);
-
   useEffect(() => {
     if (postToEdit) {
       setFormData({
         ...postToEdit,
         availabilities: postToEdit.availabilities
-            ? postToEdit.availabilities.map((availability) => ({
+          ? postToEdit.availabilities.map((availability) => ({
               ...availability,
               dateTimeFrom: new Date(availability.dateTimeFrom),
               dateTimeTo: new Date(availability.dateTimeTo),
             }))
-            : [],
+          : [],
         picture: postToEdit.picture || [],
         userId: userId,
       });
@@ -57,27 +58,32 @@ const AddServiceForm = ({
   const handleFileChange = (event) => {
     const file = event.target.files[0];
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const arrayBuffer = reader.result;
-      const uint8Array = new Uint8Array(arrayBuffer);
-      setFormData({
-        ...formData,
-        picture: Array.from(uint8Array),
-      });
-    };
-    reader.readAsArrayBuffer(file);
+    console.log("File object: ", file);
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const arrayBuffer = reader.result;
+        const uint8Array = new Uint8Array(arrayBuffer);
+        setFormData({
+          ...formData,
+          picture: Array.from(uint8Array),
+        });
+      };
+
+      reader.readAsArrayBuffer(file);
+    } else {
+      console.error("No file select or object is undefined");
+    }
   };
 
   const handleDateTimeChange = (index, field, value) => {
     const dateObject = value.$d;
-
     const isInPast = isPast(dateObject);
     if (isInPast) {
       setError("Selected date is in the past!");
     }
 
-    setIsDateTimeInPast(isInPast);
     const formattedDate = format(dateObject, "dd-MM-yyyy HH:mm:ss");
     const updatedAvailabilities = [...formData.availabilities];
     updatedAvailabilities[index][field] = formattedDate;
@@ -98,17 +104,19 @@ const AddServiceForm = ({
   };
 
   const handleSubmit = async (event) => {
+    console.log(formData);
     event.preventDefault();
     try {
+      console.log(formData);
       if (postToEdit) {
         await axiosInstance.put(`/posts/${postToEdit.id}`, formData);
         console.log("Post updated successfully");
+        toast.success("Post updated successfully.");
       } else {
         await axiosInstance.post("/posts/add", formData);
-        console.log("Service added successfully");
+        toast.success("Post added successfully.");
+        console.log("Post added successfully");
       }
-      navigate("/profile");
-      window.location.reload();
       navigate("/profile");
       refreshUserPosts(userId);
     } catch (error) {
@@ -117,10 +125,20 @@ const AddServiceForm = ({
     }
   };
 
+  const handleBackToProfileButton = () => {
+    navigate("/profile");
+  };
+
   return (
     <div className="add-service-container">
+      <button
+        className="button edit-information"
+        onClick={handleBackToProfileButton}
+      >
+        &larr; Back to profile
+      </button>
       <div className="add-service-form">
-        <h2>{postToEdit ? "Edit Service" : "Add a Service"}</h2>
+        <h2>{postToEdit ? "Edit Post" : "Add a new Post"}</h2>
         <form onSubmit={handleSubmit}>
           <select
             name="activityTypeId"
@@ -240,10 +258,14 @@ const AddServiceForm = ({
           {error && <p className="error-message">{error}</p>}
 
           <div style={{ marginTop: "50px" }}>
-            <button type="submit">{postToEdit ? "Update Service" : "Add Service"}</button>
+            <button type="submit">
+              {postToEdit ? "Update Post" : "Add Post"}
+            </button>
           </div>
         </form>
       </div>
+
+      <br />
     </div>
   );
 };

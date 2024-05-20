@@ -73,19 +73,13 @@
   color: #333333;
   font-size: 16px;
   padding: 10px 25px;
-  cursor: pointer;
   text-decoration: none;
   transition: background-color 0.3s ease, color 0.3s ease,
     border-color 0.3s ease;
 }
 
 .view-all-button:hover {
-  background-color: #f0f0f0;
-  color: #000000;
-  border-color: #999999;
-}
-
-.view-all-button::after {
-  content: "\2192";
-  margin-left: 5px;
+  background-color: #686565;
+  color: #ffffff;
+  border-color: #686565;
 }

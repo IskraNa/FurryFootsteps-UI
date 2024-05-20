@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import "./ServiceDetails.css";
 import CommentsSection from "./CommentsSection";
 import getPostById from "../../services/postsService/getPostById";
+import axiosInstance from "../../services/axiosInstance";
+import { toast } from "react-toastify";
 
 function ServiceDetailsPage({ user }) {
   const { id: postId } = useParams();
@@ -12,11 +14,27 @@ function ServiceDetailsPage({ user }) {
   const refreshService = async (id) => {
     try {
       const response = await getPostById(id);
+      console.log(response);
       setService(response);
     } catch (error) {
       console.error("Error fetching service:", error);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getPostById(postId);
+        setService(response);
+      } catch (error) {
+        console.error("Error fetching service:", error);
+      }
+    };
+
+    if (postId) {
+      fetchData();
+    }
+  }, [postId]);
 
   useEffect(() => {
     refreshService(postId);
@@ -26,15 +44,33 @@ function ServiceDetailsPage({ user }) {
     return <div>Loading...</div>;
   }
 
-  const handleApply = () => {
+  const handleApply = async () => {
     if (selectedAvailability) {
-      // TODO: logika za rezervacija
-      console.log("Selected availability:", selectedAvailability);
+      try {
+        const requestData = {
+          status: "PENDING",
+        };
+
+        const response = await axiosInstance.post(
+          "/requests/create",
+          requestData,
+          {
+            params: {
+              availabilityId: selectedAvailability.id,
+              userRequesterId: user.id,
+            },
+          }
+        );
+
+        toast.success("Request successfully created!");
+      } catch (error) {
+        console.error("Error creating request:", error.message);
+        alert("Error creating request. Please try again later.");
+      }
     } else {
-      alert("Please select an availability");
+      toast.error("Please select an availability");
     }
   };
-
   const excludedProperties = [
     "id",
     "reviews",
@@ -43,6 +79,7 @@ function ServiceDetailsPage({ user }) {
     "userId",
     "activityTypeId",
     "availabilities",
+    "picture",
   ];
   const propertyChanges = {
     description: "Description",
@@ -53,37 +90,21 @@ function ServiceDetailsPage({ user }) {
     petType: "Pet Type",
   };
 
-  // Function to render star rating
-  const renderStars = (rating) => {
-    const stars = [];
-    for (let i = 0; i < 5; i++) {
-      if (i < rating) {
-        stars.push(
-          <span key={i} className="star">
-            &#9733;
-          </span>
-        );
-      } else {
-        stars.push(
-          <span key={i} className="star">
-            &#9734;
-          </span>
-        );
-      }
-    }
-    return stars;
-  };
-
   return (
     <div>
       <div className="service-card">
         <div className="service-details-container">
           <div className="service-details-image">
-            <img
-              src={require(`../../assets/dog_walking.png`)}
-              alt={service.serviceName}
-            />
-            {/* <div className="star-rating">{renderStars(service.rating)} </div> */}
+            {service.picture ? (
+              <img
+                src={`data:image/png;base64,${service.picture}`}
+                alt={service.serviceName}
+                width="150"
+                height="150"
+              />
+            ) : (
+              <p>Loading...</p>
+            )}
           </div>
           <div className="service-details-info">
             <div className="service-name">{service.serviceName}</div>
@@ -125,13 +146,9 @@ function ServiceDetailsPage({ user }) {
                           type="radio"
                           id={`availability${index}`}
                           name="availability"
-                          value={availability.dateTimeFrom}
-                          checked={
-                            selectedAvailability === availability.dateTimeFrom
-                          }
-                          onChange={() =>
-                            setSelectedAvailability(availability.dateTimeFrom)
-                          }
+                          value={availability.availabilityId}
+                          checked={selectedAvailability?.id === availability.id}
+                          onChange={() => setSelectedAvailability(availability)}
                         />
                       </td>
                       <td>{availability.dateTimeFrom}</td>

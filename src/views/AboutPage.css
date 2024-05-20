@@ -38,8 +38,8 @@
 }
 .woman-hugging-dog {
   position: absolute;
-  left: 500px; /* Adjust this value as needed */
-  bottom: -45px; /* Adjust this value as needed */
+  left: 500px;
+  bottom: -45px;
   width: 300px;
   z-index: 10;
   transform: scale(0.85);
@@ -53,17 +53,17 @@
 .rectangle-6,
 .rectangle-7 {
   position: absolute;
-  bottom: 50px;
+  bottom: 160px;
 }
 
 .rectangle-1 {
   transform: scale(0.9);
   right: 100px;
-  bottom: 50px;
+  bottom: 100px;
 }
 
 .rectangle-2 {
-  bottom: 50px;
+  bottom: 73px;
   transform: scale(0.9);
   right: 0px;
 }

@@ -1,8 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import HeaderSmall from "../components/headerSmall/HeaderSmall";
-// import Navbar from '../components/navigation/NavBar';
-import "./AboutPage.css"; // Make sure to create this CSS file and use the code below
+import "./AboutPage.css";
 import WomanHuggingDog from "../assets/woman-hugging-dog.png";
 import Rectangle1 from "../assets/Rectangle1.png";
 import Rectangle2 from "../assets/Rectangle2.png";
@@ -11,7 +10,6 @@ import Rectangle4 from "../assets/Rectangle4.png";
 import Rectangle5 from "../assets/Rectangle5.png";
 import Rectangle6 from "../assets/Rectangle6.png";
 import Rectangle7 from "../assets/Rectangle7.png";
-import RectangleNav from "../assets/rectangle-nav.png";
 
 const AboutPage = ({ user }) => {
   return (

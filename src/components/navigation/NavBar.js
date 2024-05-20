@@ -115,11 +115,11 @@ const Navbar = ({ user, refreshUser, backgroundColor }) => {
             </li>
           </React.Fragment>
         )}
-        {!open && (
+        {/* {!open && (
           <li className="nav-search">
             <SearchBar></SearchBar>
           </li>
-        )}
+        )} */}
       </ul>
     </nav>
   );

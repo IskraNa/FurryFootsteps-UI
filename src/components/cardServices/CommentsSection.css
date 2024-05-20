@@ -170,3 +170,7 @@
   width: 50px;
   padding: 5px;
 }
+
+.text-bold {
+  font-weight: bold;
+}
